@@ -4,4 +4,8 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <string name="today_title">오늘의모기예보</string>
+    <string name="explanation_title">모기예보제란</string>
+    <string name="precaution_title">모기예방법</string>
+
 </resources>

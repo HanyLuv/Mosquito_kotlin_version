@@ -10,6 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import com.work.hany.mosquitoproject.data.MosquitoStatus
 import com.work.hany.mosquitoproject.http.Requester
+import com.work.hany.mosquitoproject.today.TodayMosquitoForecastFragment
+import com.work.hany.mosquitoproject.util.replaceFragmentInActivity
 import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
 //    private lateinit var To
     private lateinit var drawerToggle: ActionBarDrawerToggle
+
+//    private lateinit var tasksPresenter: TasksPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,25 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
         drawerLayout.addDrawerListener(drawerToggle)
 
+        var todayFragment = supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as TodayMosquitoForecastFragment? ?:
+        TodayMosquitoForecastFragment.newInstance().also {
+            replaceFragmentInActivity(it,R.id.mainFragmentContainer)
+        }
 
+
+
+        /*
+        *
+            // Create the presenter
+            tasksPresenter = TasksPresenter(Injection.provideTasksRepository(applicationContext),tasksFragment).apply {
+            // Load previously saved state, if available.
+            if (savedInstanceState != null) {
+                currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY) as TasksFilterType
+            }
+        }
+
+        *
+        * **/
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
@@ -63,6 +85,8 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
         drawerToggle.syncState()
     }
 
+
+    //가로모드 지원 안함.
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
         drawerToggle.onConfigurationChanged(newConfig)
