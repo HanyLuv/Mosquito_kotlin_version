@@ -1,14 +1,12 @@
-package com.work.hany.mosquitoproject.today
+package com.work.hany.mosquitoproject.precaution
 
 import com.work.hany.mosquitoproject.BasePresenter
 import com.work.hany.mosquitoproject.BaseView
 
 /**
- * Created by hany on 2018. 2. 25..
- *
- * View와 presenter간의 특별한 계약 (Contract) ... (?)
+ * Created by hany on 2018. 3. 1..
  */
-interface TodayMosquitoForecastContract {
+interface MosquitoPrecautionContract {
     interface View: BaseView<Presenter> {
 
 
