@@ -8,4 +8,8 @@
     <string name="explanation_title">모기예보제란</string>
     <string name="precaution_title">모기예방법</string>
 
+
+    <string name="explanation_tab_video_title">모기예보제란</string>
+    <string name="explanation_tab_behavior_title">행동수칙 및 방제법</string>
+    <string name="explanation_tab_situation_title">상황환경별</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.work.hany.mosquitoproject.explanation
 
-import android.content.Context
+import android.view.View
 import com.work.hany.mosquitoproject.BasePresenter
 import com.work.hany.mosquitoproject.BaseView
 
@@ -9,11 +9,14 @@ import com.work.hany.mosquitoproject.BaseView
  */
 interface ExplanationMosquitoForecastContract {
     interface View: BaseView<Presenter> {
-        fun showExplanationDetail()
-
+//        fun showExplanationDetail()
+        fun showVideoTab()
+        fun showSituationTab()
+        fun showBehaviorTab()
     }
 
     interface Presenter: BasePresenter {
-        fun onMenuButtonTapped()
+        /** tabbar clicked */
+        fun onTabbBarMenuTapped(tabbarItem :android.view.View)
     }
 }
