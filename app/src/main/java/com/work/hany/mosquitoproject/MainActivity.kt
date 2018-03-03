@@ -1,14 +1,9 @@
 package com.work.hany.mosquitoproject
 
-import android.app.Fragment
-import android.content.Intent
-import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 import android.support.v7.app.ActionBarDrawerToggle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -42,7 +37,7 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
         setupDrawerToggle()
 
         TodayMosquitoForecastFragment.newInstance().also {
-            replaceFragmentInActivity(it, R.id.mainFragmentContainer)
+            replaceFragmentInActivity(it, R.id.main_fragment_container)
             TodayMosquitoForecastPresenter(it)
         }
 
@@ -63,18 +58,18 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
     /** Drawer Content 설정 */
     private fun setupDrawerContent() {
-        navigationView.setNavigationItemSelectedListener { menuItem ->
+        navigation_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.today_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.today_title), Toast.LENGTH_SHORT).show()
-                    replaceFragmentInActivity(TodayMosquitoForecastFragment.newInstance(), R.id.mainFragmentContainer)
+                    replaceFragmentInActivity(TodayMosquitoForecastFragment.newInstance(), R.id.main_fragment_container)
 
                 }
 
                 R.id.explanation_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.explanation_title), Toast.LENGTH_SHORT).show()
                     ExplanationMosquitoForecastFragment.newInstance().also {
-                        replaceFragmentInActivity(it, R.id.mainFragmentContainer)
+                        replaceFragmentInActivity(it, R.id.main_fragment_container)
                         ExplanationMosquitoForecastPresenter(it)
                     }
 
@@ -83,16 +78,16 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
                 R.id.precaution_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.precaution_title), Toast.LENGTH_SHORT).show()
                     MosquitoPrecautionFragment.newInstance().also {
-                        replaceFragmentInActivity(it, R.id.mainFragmentContainer)
+                        replaceFragmentInActivity(it, R.id.main_fragment_container)
                         MosquitoPrecautionPresenter(it)
                     }
 
-                    replaceFragmentInActivity(MosquitoPrecautionFragment.newInstance(), R.id.mainFragmentContainer)
+                    replaceFragmentInActivity(MosquitoPrecautionFragment.newInstance(), R.id.main_fragment_container)
                 }
 
             }
 
-            drawerLayout.closeDrawers()
+            drawer_layout.closeDrawers()
             true
         }
 
@@ -100,7 +95,7 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
     /** Toogle 설정 */
     private fun setupDrawerToggle() {
-        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
+        drawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, R.string.drawer_open, R.string.drawer_close) {
             override fun onDrawerClosed(drawerView: View?) {
                 super.onDrawerClosed(drawerView)
                 invalidateOptionsMenu() // creates call to onPrepareOptionsMenu()
@@ -116,7 +111,7 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
         }
 
-        drawerLayout.addDrawerListener(drawerToggle)
+        drawer_layout.addDrawerListener(drawerToggle)
     }
 
 

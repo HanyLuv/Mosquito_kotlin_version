@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.VideoView
 import com.work.hany.mosquitoproject.R
-import com.work.hany.mosquitoproject.explanation.tabs.behavior.BehaviorTabFragment
+import com.work.hany.mosquitoproject.data.Behavior
+import com.work.hany.mosquitoproject.explanation.tabs.AdapterContract
+import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter
 import com.work.hany.mosquitoproject.util.actionBarHeight
-import com.work.hany.mosquitoproject.util.replaceFragmentInActivity
 import com.work.hany.mosquitoproject.util.toDoWithActivity
 
 /**
@@ -20,7 +20,7 @@ import com.work.hany.mosquitoproject.util.toDoWithActivity
  *
  * 모기예보제란 fragment
  */
-class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForecastContract.View {
+class ExplanationMosquitoForecastFragment: Fragment, ExplanationMosquitoForecastContract.View {
 
     override lateinit var presenter: ExplanationMosquitoForecastContract.Presenter
 
@@ -28,7 +28,19 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
     private lateinit var behaviorTabView: View
     private lateinit var videoTabView: View
     private lateinit var situationTabView: View
-    private var tabViewList: Set<View> = setOf()
+    private lateinit var tabViewList: Set<View>
+
+
+    //adapter에 있는 View와 Model 분리하여 갱싱하도록 하였음.
+    private lateinit var adapterView: AdapterContract.View
+    private lateinit var adapterModel: AdapterContract.Model
+
+    //어댑터 만들어주고 view에서 어댑터에 들어갈 데이터를 셋팅해준다
+
+    private lateinit var adapter: ExplanationRecyclerAdapter
+
+    constructor() : super()
+
 
     companion object {
         fun newInstance() = ExplanationMosquitoForecastFragment()
@@ -41,7 +53,7 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
             var actionBarHeight = actionBarHeight()
             recyclerView = root.findViewById(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
-            populateRecyclerView(recyclerView)
+            recyclerView.adapter = ExplanationRecyclerAdapter()
 
             recyclerView.addOnScrollListener(ToolbarHidingOnScrollListener(
                     actionBarHeight,
@@ -51,49 +63,20 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
 
         behaviorTabView = root.findViewById<View>(R.id.behaviortab).also{
             it.setOnClickListener{ presenter.onTabbBarMenuTapped(it) }
-            tabViewList.plus(it)
         }
 
         videoTabView = root.findViewById<View>(R.id.videotab).also{
             it.setOnClickListener{ presenter.onTabbBarMenuTapped(it) }
-            tabViewList.plus(it)
         }
 
         situationTabView = root.findViewById<View>(R.id.situationtab).also{
             it.setOnClickListener{ presenter.onTabbBarMenuTapped(it) }
-            tabViewList.plus(it)
         }
+
+        tabViewList = setOf(videoTabView,situationTabView,behaviorTabView)
 
         return root
     }
-
-    private fun populateRecyclerView(recyclerView: RecyclerView) {
-
-        recyclerView.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-            private var DUMMY_ITEM_COUNT = 40
-
-            override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): RecyclerView.ViewHolder {
-                val itemView = LayoutInflater.from(viewGroup.context).inflate(R.layout.row_behavior_item, viewGroup, false)
-                return TextHolder(itemView)
-            }
-
-            override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-                // We are too lazy for this by now ;-)
-            }
-
-            override fun getItemCount(): Int {
-                return DUMMY_ITEM_COUNT
-            }
-
-
-            internal inner class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-        }
-
-    }
-
-
 
     override fun showVideoTab() {
         tabViewList.iterator().forEach {
@@ -116,18 +99,22 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
 
     }
 
-    override fun showBehaviorTab() {
+
+    override fun showBehaviorTab(items: List<Behavior>) {
         Toast.makeText(context,"행동수칙 및 방제법",Toast.LENGTH_SHORT).show()
 
         tabViewList.iterator().forEach {
             it.isSelected = false
         }
-
         behaviorTabView.isSelected = true
+//        adapter.addAll(items)
+//        adapter.refresh()
+
 //        toDoWithActivity {
 //            replaceFragmentInActivity(BehaviorTabFragment(),R.id.mainFragmentContainer)
 //        }
     }
+
 
 
 }
