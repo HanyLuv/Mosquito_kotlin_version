@@ -1,15 +1,12 @@
 package com.work.hany.mosquitoproject.explanation.tabs
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.*
-import kotlinx.android.synthetic.main.row_behavior_item.view.*
-import org.w3c.dom.Text
 
 /**
  *
@@ -20,14 +17,13 @@ import org.w3c.dom.Text
  * Behavior type
  */
 
-class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<ExplanationData>>(),
-        AdapterContract.View, AdapterContract.Model {
+class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<ExplanationData>>() {
 
     private var ITEM_TYPE_BEHAVIOR = 1
     private var ITEM_TYPE_SITUATION = 2
 
 
-    private var items: List<ExplanationData> = DataManager().createBehaviorItems()
+    private var items: List<ExplanationData> = ArrayList()
 
 
     override fun getItemViewType(position: Int): Int {
@@ -36,10 +32,8 @@ class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanatio
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExplanationData> {
         if (viewType == ITEM_TYPE_BEHAVIOR) {
-            Log.d("HANY_TAG HAHAHAH","ITEM_TYPE_BEHAVIOR")
             return BehaviorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_behavior_item, parent,false)) as BaseViewHolder<ExplanationData>
         } else {
-            Log.d("HANY_TAG HAHAHAH","ITEM_TYPE_SITUATION")
             return SituationViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_situation_item, parent)) as BaseViewHolder<ExplanationData>
         }
 
@@ -50,21 +44,12 @@ class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanatio
     }
 
     override fun getItemCount(): Int {
-        return getSize()
+        return  items.size
     }
 
-
-    /** AdapterContract */
-    override fun refresh() {
-        this.notifyDataSetChanged()
-    }
-
-    override fun getSize(): Int {
-        return items.size
-    }
-
-    override fun addAll(items: List<out ExplanationData>) {
+    fun addAll(items: List<out ExplanationData>) {
         this.items = items
+        this.notifyDataSetChanged()
     }
 
 
@@ -95,15 +80,15 @@ private class SituationViewHolder(itemView: View) : BaseViewHolder<Situation>(it
 
 }
 
-//따로 뺄까 고민됨
-interface AdapterContract {
-    interface View {
-        fun refresh()
-    }
-
-    interface Model {
-        fun getSize(): Int
-        fun addAll(items: List<out ExplanationData>)
-    }
-
-}
+/** TODO: 추후에 고민해볼것. adapterview에 MVP적용 방법..*/
+//interface AdapterContract {
+//    interface View {
+//        fun refresh()
+//    }
+//
+//    interface Model {
+//        fun getSize(): Int
+//        fun addAll(items: List<out ExplanationData>)
+//    }
+//
+//}

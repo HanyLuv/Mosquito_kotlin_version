@@ -3,20 +3,10 @@ package com.work.hany.mosquitoproject.data
 /**
  * Created by hany on 2018. 3. 4..
  */
-class DataManager{
+class DataManager {
     fun createBehaviorItems(): List<Behavior> {
-        var behaviorItems: ArrayList<Behavior> = ArrayList()
 
-        /**
-         *
-         * (override var type: TabItemType = TabItemType.BEHAVIOR, var level: Int,
-        var levelTitle: String,
-        var levelInfoItems: List<String>,
-        var steps: List<Step>,
-        var defensiveBehaviorItems: List<String>,
-        var activeBehaviorItems: List<String>)
-         *
-         * */
+        var behaviorItems: ArrayList<Behavior> = ArrayList()
         var levelInfoItems: List<String> = ArrayList()
         var steps: List<Step> = ArrayList()
 
@@ -26,5 +16,13 @@ class DataManager{
         behaviorItems.add(Behavior(TabItemType.BEHAVIOR,4,"위험",levelInfoItems,steps,levelInfoItems,levelInfoItems))
 
         return behaviorItems
+    }
+
+
+    fun createSituationItems(): List<Situation> {
+
+        var situationItems: ArrayList<Situation> = ArrayList()
+
+        return situationItems
     }
 }
