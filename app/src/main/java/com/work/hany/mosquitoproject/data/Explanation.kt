@@ -28,4 +28,6 @@ data class Step(var title: String, var sectionLevel: String)
 
 
 data class Situation(override var type: Type,
-                     var title: String): Explanation
+                     var title: String,
+                     var subTitle: String,
+                     var subItems: List<String>): Explanation

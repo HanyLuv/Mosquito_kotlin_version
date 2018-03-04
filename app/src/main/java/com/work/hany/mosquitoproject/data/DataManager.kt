@@ -27,6 +27,13 @@ class DataManager {
     fun createSituationItems(): List<Situation> {
 
         var situationItems: ArrayList<Situation> = ArrayList()
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
+        situationItems.add(Situation(Type.SITUATION,"타이틀","서브타이틀", ArrayList()))
 
         return situationItems
     }

@@ -10,6 +10,7 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -47,8 +48,6 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
         var root = inflater.inflate(R.layout.fragment_explanation, container, false)
 
         var actionBarHeight = activity.actionBarHeight()
-
-
         //어댑터 반드시 수정필요한듯
         adapter = ExplanationRecyclerAdapter(object : ClickListener {
             override fun onClick(view: View, position: Int) {
@@ -100,14 +99,14 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     override fun showSituationTab(items: List<Situation>) {
         tabSelected(situationTabView)
         adapter.addAll(items)
-
+        recyclerView.scheduleLayoutAnimation()
     }
 
 
     override fun showBehaviorTab(items: List<Behavior>) {
         tabSelected(behaviorTabView)
         adapter.addAll(items)
-
+        recyclerView.scheduleLayoutAnimation()
     }
 
 

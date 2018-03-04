@@ -19,7 +19,7 @@ import com.work.hany.mosquitoproject.data.*
  * 으아아아으아아앙 맘에안들어 ㅠㅡㅠ
  */
 
-class ExplanationRecyclerAdapter(var clickListener: ClickListener) : RecyclerView.Adapter<BaseViewHolder<Explanation>>() {
+class ExplanationRecyclerAdapter(private var clickListener: ClickListener) : RecyclerView.Adapter<BaseViewHolder<Explanation>>() {
 
     private var items: List<Explanation> = ArrayList()
 
