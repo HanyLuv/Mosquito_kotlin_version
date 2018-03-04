@@ -13,8 +13,11 @@
     <string name="explanation_tab_behavior_title">행동수칙 및 방제법</string>
     <string name="explanation_tab_situation_title">상황환경별</string>
 
-
-
     <string name="explanation_tab_behavior_header_title">모기 예보 발생 단계</string>
     <string name="explanation_tab_behavior_header_information">- 총 4단계로 발령하며 단계가 높아질수록 모기 발생의 우려가 높음 \n- 1단계:쾌적단계 <![CDATA[<]]> 2단계:관심단계 <![CDATA[<]]> 3단계:주의단계 <![CDATA[<]]> 4단계:불쾌단계</string>
+
+
+    <string name="behavior_background_name">behavior_background</string>
+
+
 </resources>

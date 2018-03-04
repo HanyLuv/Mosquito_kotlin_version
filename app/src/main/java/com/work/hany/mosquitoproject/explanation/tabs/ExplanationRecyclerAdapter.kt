@@ -1,12 +1,17 @@
 package com.work.hany.mosquitoproject.explanation.tabs
 
+import android.app.ActivityOptions
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.*
+import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForecastDetailActivity
 
 /**
  *
@@ -15,30 +20,36 @@ import com.work.hany.mosquitoproject.data.*
  * Video type X
  * Situation type
  * Behavior type
+ *
+ * 으아아아으아아앙 맘에안들어 ㅠㅡㅠ
  */
 
-class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanation>>() {
+class ExplanationRecyclerAdapter(var clickListener: ClickListener) : RecyclerView.Adapter<BaseViewHolder<Explanation>>() {
 
     private var items: List<Explanation> = ArrayList()
 
+    interface ClickListener {
+        fun onClick(view: View, position: Int)
+    }
 
     override fun getItemViewType(position: Int): Int {
-        when (items[position].type){
+        when (items[position].type) {
             Type.HEADER -> return Type.HEADER.code
             Type.BEHAVIOR -> return Type.BEHAVIOR.code
             Type.SITUATION -> return Type.SITUATION.code
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Explanation> {
         var inflater = LayoutInflater.from(parent.context)
         //TODO : 해결
         if (viewType == Type.BEHAVIOR.code)
-            return BehaviorViewHolder(inflater.inflate(R.layout.row_behavior_item, parent, false)) as BaseViewHolder<Explanation>
+            return BehaviorViewHolder(inflater.inflate(R.layout.row_behavior_item, parent, false),clickListener) as BaseViewHolder<Explanation>
         else if (viewType == Type.SITUATION.code)
-            return SituationViewHolder(inflater.inflate(R.layout.row_situation_item, parent,false)) as BaseViewHolder<Explanation>
+            return SituationViewHolder(inflater.inflate(R.layout.row_situation_item, parent, false)) as BaseViewHolder<Explanation>
         else
-            return HeaderViewHolder(inflater.inflate(R.layout.row_header_item, parent,false))
+            return HeaderViewHolder(inflater.inflate(R.layout.row_header_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<Explanation>, position: Int) {
@@ -46,11 +57,11 @@ class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanatio
     }
 
     override fun getItemCount(): Int {
-        return  items.size
+        return items.size
     }
 
-    fun addAll(items: List<out Explanation>) {
-        this.items = items
+    fun addAll(newItems: List<out Explanation>) {
+        this.items = newItems
         this.notifyDataSetChanged()
     }
 
@@ -59,17 +70,16 @@ class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanatio
 
 abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     abstract fun bind(item: T)
-
 }
 
-private class BehaviorViewHolder(itemView: View) : BaseViewHolder<Behavior>(itemView) {
+private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationRecyclerAdapter.ClickListener) : BaseViewHolder<Behavior>(itemView) {
 
     private var levelTitleView: TextView = itemView.findViewById(R.id.title_text_view)
     private var levelView: TextView = itemView.findViewById(R.id.level_text_view)
 
     override fun bind(item: Behavior) {
         itemView.setOnClickListener {
-
+            clickListener.onClick(itemView, adapterPosition)
         }
 
         levelTitleView.text = item.levelTitle
@@ -86,6 +96,6 @@ private class SituationViewHolder(itemView: View) : BaseViewHolder<Situation>(it
 
 //ㅠㅡㅠ 고민해보자.
 private class HeaderViewHolder(itemView: View) : BaseViewHolder<Explanation>(itemView) {
-    override fun bind(item: Explanation) { }
+    override fun bind(item: Explanation) {}
 
 }

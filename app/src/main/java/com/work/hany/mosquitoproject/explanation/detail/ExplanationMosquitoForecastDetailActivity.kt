@@ -15,6 +15,6 @@ class ExplanationMosquitoForecastDetailActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explanation_detail)
 
-        replaceFragmentInActivity(ExplanationMosquitoForecastDetailFragment.newInstance(),R.id.detailFragmentContainer)
+//        replaceFragmentInActivity(ExplanationMosquitoForecastDetailFragment.newInstance(),R.id.detailFragmentContainer)
     }
 }

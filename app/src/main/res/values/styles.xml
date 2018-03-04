@@ -16,4 +16,23 @@
     </style>
 
 
+    <style name="BehaviorBackgroundAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+    </style>
+
+    <!--명명 규칙 바꾸자-->
+    <style name="BehaviorBackgroundAnimations.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+
+
+    <style name="BehaviorBackgroundAnimations.Big">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+
 </resources>

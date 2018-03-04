@@ -1,5 +1,6 @@
 package com.work.hany.mosquitoproject.util
 
+import android.app.Activity
 import android.support.v7.app.ActionBar
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
@@ -29,22 +30,13 @@ fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frame
 }
 
 
-fun AppCompatActivity.actionBarHeight(): Int {
-    var actionBarHeight = 0
+fun Activity.actionBarHeight(): Int {
     val styledAttributes = theme.obtainStyledAttributes(
             intArrayOf(android.R.attr.actionBarSize)
     )
-    actionBarHeight = styledAttributes.getDimension(0, 0f).toInt()
+    var actionBarHeight = styledAttributes.getDimension(0, 0f).toInt()
     styledAttributes.recycle()
     return actionBarHeight
-}
-
-
-
-fun Fragment.toDoWithActivity(action: AppCompatActivity.() -> Unit) {
-    (context as AppCompatActivity)?.run {
-        action()
-    }
 }
 
 

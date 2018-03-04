@@ -4,15 +4,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
+    <ImageView
         android:id="@+id/detailFragmentContainer"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="#bbaacc"
+           android:background="@drawable/puppy"
+        android:transitionName="@string/behavior_background_name"
+        style="@style/BehaviorBackgroundAnimations.Big"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="150dp"/>
+
+
 
 
 </android.support.constraint.ConstraintLayout>
