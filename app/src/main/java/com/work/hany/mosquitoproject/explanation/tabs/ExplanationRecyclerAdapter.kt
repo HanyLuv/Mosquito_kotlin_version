@@ -17,29 +17,31 @@ import com.work.hany.mosquitoproject.data.*
  * Behavior type
  */
 
-class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<ExplanationData>>() {
+class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanation>>() {
 
-    private var ITEM_TYPE_BEHAVIOR = 1
-    private var ITEM_TYPE_SITUATION = 2
-
-
-    private var items: List<ExplanationData> = ArrayList()
+    private var items: List<Explanation> = ArrayList()
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (items[position].type == TabItemType.BEHAVIOR) ITEM_TYPE_BEHAVIOR else ITEM_TYPE_SITUATION
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExplanationData> {
-        if (viewType == ITEM_TYPE_BEHAVIOR) {
-            return BehaviorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_behavior_item, parent,false)) as BaseViewHolder<ExplanationData>
-        } else {
-            return SituationViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_situation_item, parent)) as BaseViewHolder<ExplanationData>
+        when (items[position].type){
+            Type.HEADER -> return Type.HEADER.code
+            Type.BEHAVIOR -> return Type.BEHAVIOR.code
+            Type.SITUATION -> return Type.SITUATION.code
         }
-
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ExplanationData>, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Explanation> {
+        var inflater = LayoutInflater.from(parent.context)
+        //TODO : 해결
+        if (viewType == Type.BEHAVIOR.code)
+            return BehaviorViewHolder(inflater.inflate(R.layout.row_behavior_item, parent, false)) as BaseViewHolder<Explanation>
+        else if (viewType == Type.SITUATION.code)
+            return SituationViewHolder(inflater.inflate(R.layout.row_situation_item, parent,false)) as BaseViewHolder<Explanation>
+        else
+            return HeaderViewHolder(inflater.inflate(R.layout.row_header_item, parent,false))
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder<Explanation>, position: Int) {
         holder.bind(items[position])
     }
 
@@ -47,7 +49,7 @@ class ExplanationRecyclerAdapter: RecyclerView.Adapter<BaseViewHolder<Explanatio
         return  items.size
     }
 
-    fun addAll(items: List<out ExplanationData>) {
+    fun addAll(items: List<out Explanation>) {
         this.items = items
         this.notifyDataSetChanged()
     }
@@ -66,13 +68,15 @@ private class BehaviorViewHolder(itemView: View) : BaseViewHolder<Behavior>(item
     private var levelView: TextView = itemView.findViewById(R.id.level_text_view)
 
     override fun bind(item: Behavior) {
+        itemView.setOnClickListener {
 
+        }
+        
         levelTitleView.text = item.levelTitle
         levelView.text = item.level.toString()
     }
 
 }
-
 
 private class SituationViewHolder(itemView: View) : BaseViewHolder<Situation>(itemView) {
     override fun bind(item: Situation) {
@@ -80,15 +84,8 @@ private class SituationViewHolder(itemView: View) : BaseViewHolder<Situation>(it
 
 }
 
-/** TODO: 추후에 고민해볼것. adapterview에 MVP적용 방법..*/
-//interface AdapterContract {
-//    interface View {
-//        fun refresh()
-//    }
-//
-//    interface Model {
-//        fun getSize(): Int
-//        fun addAll(items: List<out ExplanationData>)
-//    }
-//
-//}
+//ㅠㅡㅠ 고민해보자.
+private class HeaderViewHolder(itemView: View) : BaseViewHolder<Explanation>(itemView) {
+    override fun bind(item: Explanation) { }
+
+}

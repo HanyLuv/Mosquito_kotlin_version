@@ -32,7 +32,7 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
     private lateinit var videoTabView: View
     private lateinit var situationTabView: View
     private lateinit var tabViewList: Set<View>
-    
+
     //어댑터 만들어주고 view에서 어댑터에 들어갈 데이터를 셋팅해준다
     private  var adapter: ExplanationRecyclerAdapter = ExplanationRecyclerAdapter()
 
@@ -105,7 +105,9 @@ class ExplanationMosquitoForecastFragment: Fragment(), ExplanationMosquitoForeca
         tabViewList.iterator().forEach {
             it.isSelected = false
         }
+
         behaviorTabView.isSelected = true
+
         adapter.addAll(items)
 
     }
