@@ -1,8 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -15,24 +14,31 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.NoStatusBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
-    <style name="BehaviorBackgroundAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <style name="BehaviorAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
     </style>
 
-    <!--명명 규칙 바꾸자-->
-    <style name="BehaviorBackgroundAnimations.Small">
+    <style name="BehaviorAnimations.Background">
+        <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="BehaviorAnimations.Background.Small">
         <item name="android:layout_height">150dp</item>
     </style>
 
-
-    <style name="BehaviorBackgroundAnimations.Big">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">150dp</item>
+    <style name="BehaviorAnimations.Background.Big">
+        <item name="android:layout_height">200dp</item>
     </style>
 
 </resources>

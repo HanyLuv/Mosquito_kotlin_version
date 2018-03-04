@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Behavior
@@ -17,8 +19,6 @@ import com.work.hany.mosquitoproject.data.Situation
 import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForecastDetailActivity
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter.ClickListener
-import com.work.hany.mosquitoproject.explanation.tabs.situation.SituationTabFragment
-import com.work.hany.mosquitoproject.explanation.tabs.video.VideoTabFragment
 import com.work.hany.mosquitoproject.util.actionBarHeight
 
 /**
@@ -48,13 +48,17 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
 
         var actionBarHeight = activity.actionBarHeight()
 
+
+        //어댑터 반드시 수정필요한듯
         adapter = ExplanationRecyclerAdapter(object : ClickListener {
             override fun onClick(view: View, position: Int) {
-                var sharedBackgroundView = view.findViewById<ImageView>(R.id.background_view)
-                var transitionName = getString(R.string.behavior_background_name)
+                var sharedView = view.findViewById<ImageView>(R.id.background_view)
+                var sharedPair: Pair<View, String> = Pair.create(sharedView,sharedView.transitionName)
+
+                var transOption = ActivityOptions.makeSceneTransitionAnimation(activity, sharedPair)
+//
                 var intent = Intent(activity, ExplanationMosquitoForecastDetailActivity::class.java)
-                var transActivityOption = ActivityOptions.makeSceneTransitionAnimation(activity, sharedBackgroundView, transitionName)
-                startActivity(intent, transActivityOption.toBundle())
+                startActivity(intent, transOption.toBundle())
             }
         })
 
@@ -85,43 +89,31 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     }
 
     override fun showVideoTab() {
-        tabViewList.iterator().forEach {
-            it.isSelected = false
-        }
+        tabSelected(videoTabView)
 
-        videoTabView.isSelected = true
         Toast.makeText(context, "모기예보제란", Toast.LENGTH_SHORT).show()
 
+        //어떻게 할지 고민된다
 //        activity.replaceFragmentInActivity(VideoTabFragment(), R.id.main_fragment_container) }
     }
 
     override fun showSituationTab(items: List<Situation>) {
-
-        tabViewList.iterator().forEach {
-            it.isSelected = false
-        }
-
-        situationTabView.isSelected = true
-
-        Toast.makeText(context, "상황별", Toast.LENGTH_SHORT).show()
-//        toDoWithActivity {
-//            replaceFragmentInActivity(SituationTabFragment(), R.id.main_fragment_container)
-//        }
-    }
-
-
-    override fun showBehaviorTab(items: List<Behavior>) {
-        Toast.makeText(context, "행동수칙 및 방제법", Toast.LENGTH_SHORT).show()
-
-        tabViewList.iterator().forEach {
-            it.isSelected = false
-        }
-
-        behaviorTabView.isSelected = true
-
+        tabSelected(situationTabView)
         adapter.addAll(items)
 
     }
 
+
+    override fun showBehaviorTab(items: List<Behavior>) {
+        tabSelected(behaviorTabView)
+        adapter.addAll(items)
+
+    }
+
+
+    private fun tabSelected(selectedTab: View){
+        tabViewList.iterator().forEach { it.isSelected = false }
+        selectedTab.isSelected = true
+    }
 
 }

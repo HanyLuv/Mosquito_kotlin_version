@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".explanation.detail.ExplanationMosquitoForecastDetailActivity"/>
+        <activity
+            android:name=".explanation.detail.ExplanationMosquitoForecastDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />
     </application>
 
 </manifest>

@@ -1,17 +1,12 @@
 package com.work.hany.mosquitoproject.explanation.tabs
 
-import android.app.ActivityOptions
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.*
-import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForecastDetailActivity
 
 /**
  *
@@ -74,16 +69,19 @@ abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(it
 
 private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationRecyclerAdapter.ClickListener) : BaseViewHolder<Behavior>(itemView) {
 
-    private var levelTitleView: TextView = itemView.findViewById(R.id.title_text_view)
-    private var levelView: TextView = itemView.findViewById(R.id.level_text_view)
+    private var levelTitleView: TextView = itemView.findViewById(R.id.step_text_view)
 
     override fun bind(item: Behavior) {
         itemView.setOnClickListener {
             clickListener.onClick(itemView, adapterPosition)
         }
 
-        levelTitleView.text = item.levelTitle
-        levelView.text = item.level.toString()
+        var levelTitle = StringBuilder()
+                .append(item.level)
+                .append(itemView.context.getString(R.string.explanation_tab_behavior_item_step))
+                .append(item.levelTitle)
+
+        levelTitleView.text = levelTitle
     }
 
 }

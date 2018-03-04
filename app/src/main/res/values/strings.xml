@@ -19,5 +19,6 @@
 
     <string name="behavior_background_name">behavior_background</string>
 
+    <string name="explanation_tab_behavior_item_step">단계 </string>
 
 </resources>
