@@ -71,7 +71,7 @@ private class BehaviorViewHolder(itemView: View) : BaseViewHolder<Behavior>(item
         itemView.setOnClickListener {
 
         }
-        
+
         levelTitleView.text = item.levelTitle
         levelView.text = item.level.toString()
     }
