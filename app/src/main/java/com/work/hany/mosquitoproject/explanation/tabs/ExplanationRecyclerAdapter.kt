@@ -77,7 +77,7 @@ private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationR
         }
 
         var levelTitle = StringBuilder()
-                .append(item.level)
+                .append(adapterPosition + 1)
                 .append(itemView.context.getString(R.string.explanation_tab_behavior_item_step))
                 .append(item.levelTitle)
 

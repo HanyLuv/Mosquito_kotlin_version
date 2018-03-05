@@ -13,21 +13,20 @@ enum class Type(var code: Int) {
     BEHAVIOR(1), SITUATION(2), HEADER(3)
 }
 
-data class Behavior(override var type: Type,
-                    var level: Int,
-                    var levelTitle: String,
-                    var levelInfoItems: List<String>,
-                    var steps: List<Step>,
-                    var defensiveBehaviorItems: List<String>,
-                    var activeBehaviorItems: List<String>): Explanation
 
+/** 모기 예보 발생 단계 데이터
+ * @param levelTitle 1단계 쾌적
+ * @param steps 하, 중, 상의 데이터들...
+ * */
+
+data class Behavior(override var type: Type,var levelTitle: String, var steps: List<Step>): Explanation
 /** eg.
- * title : 하
- * sectionLevel : 0 ~ 29.0 */
-data class Step(var title: String, var sectionLevel: String)
+ * title : 하 (0 ~ 29.0) */
+data class Step(var title: String, var defensiveBehaviorItems: List<String>, var activeBehaviorItems: List<String>)
 
 
 data class Situation(override var type: Type,
                      var title: String,
                      var subTitle: String,
                      var subItems: List<String>): Explanation
+
