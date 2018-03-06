@@ -22,7 +22,6 @@
 
 
     <style name="BehaviorAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
-
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>

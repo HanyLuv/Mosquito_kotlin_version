@@ -3,6 +3,7 @@ package com.work.hany.mosquitoproject.explanation
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.andexert.library.RippleView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.Situation
@@ -21,6 +23,7 @@ import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForec
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter.ClickListener
 import com.work.hany.mosquitoproject.util.actionBarHeight
+import java.io.Serializable
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -50,14 +53,8 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
         var actionBarHeight = activity.actionBarHeight()
         //어댑터 반드시 수정필요한듯
         adapter = ExplanationRecyclerAdapter(object : ClickListener {
-            override fun onClick(view: View, position: Int) {
-                var sharedView = view.findViewById<ImageView>(R.id.background_view)
-                var sharedPair: Pair<View, String> = Pair.create(sharedView,sharedView.transitionName)
-
-                var transOption = ActivityOptions.makeSceneTransitionAnimation(activity, sharedPair)
-//
-                var intent = Intent(activity, ExplanationMosquitoForecastDetailActivity::class.java)
-                startActivity(intent, transOption.toBundle())
+            override fun onClick(view: View, behavior: Behavior) {
+                presenter.onListItemTapped(view, behavior)
             }
         })
 
@@ -110,9 +107,21 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     }
 
 
-    private fun tabSelected(selectedTab: View){
+    private fun tabSelected(selectedTab: View) {
         tabViewList.iterator().forEach { it.isSelected = false }
         selectedTab.isSelected = true
     }
+
+    override fun showExplanationDetail(listItemView: View, behavior: Behavior) {
+        var sharedView = listItemView.findViewById<ImageView>(R.id.background_view)
+        var sharedPair: Pair<View, String> = Pair.create(sharedView, sharedView.transitionName)
+
+        var transOption = ActivityOptions.makeSceneTransitionAnimation(activity, sharedPair)
+        var intent = Intent(activity, ExplanationMosquitoForecastDetailActivity::class.java)
+
+        intent.putExtra(ExplanationMosquitoForecastDetailActivity.EXTRA_KEY, behavior as Parcelable)
+        startActivity(intent, transOption.toBundle())
+    }
+
 
 }

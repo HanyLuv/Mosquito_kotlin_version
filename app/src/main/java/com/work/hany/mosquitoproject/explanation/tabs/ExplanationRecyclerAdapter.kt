@@ -24,7 +24,7 @@ class ExplanationRecyclerAdapter(private var clickListener: ClickListener) : Rec
     private var items: List<Explanation> = ArrayList()
 
     interface ClickListener {
-        fun onClick(view: View, position: Int)
+        fun onClick(view: View, behavior: Behavior)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -73,11 +73,11 @@ private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationR
 
     override fun bind(item: Behavior) {
         itemView.setOnClickListener {
-            clickListener.onClick(itemView, adapterPosition)
+            clickListener.onClick(itemView, item)
         }
 
         var levelTitle = StringBuilder()
-                .append(adapterPosition + 1)
+                .append(adapterPosition)
                 .append(itemView.context.getString(R.string.explanation_tab_behavior_item_step))
                 .append(item.levelTitle)
 

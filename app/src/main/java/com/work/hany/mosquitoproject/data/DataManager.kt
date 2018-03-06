@@ -19,12 +19,12 @@ class DataManager {
         var resKey = arrayOf("average", "below", "above")
 
         var behaviorItems: ArrayList<Behavior> = ArrayList()
-        behaviorItems.add( Behavior(Type.HEADER, "header", ArrayList()))
+        behaviorItems.add(Behavior(Type.HEADER, "header", ArrayList()))
 
         var levelTitles = resource.getStringArray(R.array.behavior_levels).toCollection(ArrayList())
         var levelCount = 1
         for (title in levelTitles) {
-            
+
             var strStepRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_steps").toString()
             var stepsRes = resource.getIdentifier(strStepRes, null, context.packageName)
             var stepCategoris = resource.getStringArray(stepsRes)
@@ -41,11 +41,16 @@ class DataManager {
                 var activeItemsRes = resource.getIdentifier(strActiveRes, null, context.packageName)
                 var activeItems = resource.getStringArray(activeItemsRes).toCollection(ArrayList())
 
+                var strPublicRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_").append(resKey[stepCount]).append("_public_items").toString()
+                var publicItemsRes = resource.getIdentifier(strPublicRes, null, context.packageName)
+                var publicItems = resource.getStringArray(publicItemsRes).toCollection(ArrayList())
+
+
                 stepCount++
-                steps.add(Step(stepCategory, defensiveItems, activeItems))
+                steps.add(Step(stepCategory, defensiveItems, activeItems, publicItems))
             }
 
-            behaviorItems.add( Behavior(Type.BEHAVIOR, title, steps))
+            behaviorItems.add(Behavior(Type.BEHAVIOR, title, steps))
         }
 
         return behaviorItems

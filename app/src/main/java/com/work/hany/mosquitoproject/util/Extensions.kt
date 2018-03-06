@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by hany on 2018. 2. 26..
@@ -39,6 +41,34 @@ fun Activity.actionBarHeight(): Int {
     return actionBarHeight
 }
 
+
+/**
+ * @description 오늘의 날짜를 기본 포멧형식으로 가져옴.
+ * */
+fun Date.todayDate(): String{
+    val date: Date = this
+    var formatter = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+    return formatter.format(date)
+}
+
+
+/**
+ *
+ * @author hany
+ * @description 오늘의 날짜를 기준으로 7일전의 날짜리스트를 반환한다.
+ */
+
+//fun Date.weekDate(): ArrayList<String> {
+//    val weekData = ArrayList<String>()
+//    weekData.add(getTodayDate())
+//    for (count in 1 until WEEK) {
+//        mCalendar.add(mCalendar.DAY_OF_MONTH, OEN_DAY)
+//        weekData.add(formattingDate(mCalendar.getTime()))
+//    }
+//    mCalendar.add(mCalendar.DAY_OF_MONTH, WEEK)
+//    LogManager.e("list " + weekData.toString() + " size " + weekData.size)
+//    return weekData
+//}
 
 /** fragment 사용하면 add(...)가 자주 불리니깐 inline 처리한듯 부담되지않도록 */
 private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {

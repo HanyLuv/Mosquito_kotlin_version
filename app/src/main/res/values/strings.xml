@@ -167,6 +167,77 @@
     </array>
 
 
+    <!-- **************************************************** 기관 / 사회 -->
+    <!-- ****************************************************************단계별 방어적 행동*** -->
+    <!-- 단계별 방어적 행동 [쾌적, 하]-->
+    <array name="behavior_1_below_public_items">
+        <item>없음</item>
+    </array>
+    <!-- 단계별 방어적 행동 [쾌적, 중]-->
+    <array name="behavior_1_average_public_items">
+        <item>없음</item>
+    </array>
+    <!-- 단계별 방어적 행동 [쾌적, 상]-->
+    <array name="behavior_1_above_public_items">
+        <item>모기 침입통로 보완</item>
+        <item>창문과 문에 방충망 사용하기</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [관심, 하]-->
+    <array name="behavior_2_below_public_items">
+        <item>늦은 시간 현관문 열어놓지 않기</item>
+        <item>가급적 냉방기 사용</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [관심, 중]-->
+    <array name="behavior_2_average_public_items">
+        <item>주택 내로 모기 침입 주의</item>
+        <item>모기 침입통로 수리</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [관심, 상]-->
+    <array name="behavior_2_above_public_items">
+        <item>문과 창문 방충망 수리</item>
+        <item>정화조의 금이나 틈새 수리하기</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [주의, 하]-->
+    <array name="behavior_3_below_public_items">
+        <item>단독주택 거주민 모기장 사용</item>
+        <item>출입문과 창문을 열어 환기하는 것을 자제하고 냉방기 사용</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [주의, 중]-->
+    <array name="behavior_3_average_public_items">
+        <item>주간 풀숲 근접지역 숲모기의 흡혈공격 주의</item>
+        <item>야외활동시 가급적 긴팔과 긴바지, 양말 착용</item>
+        <item>아기침대와 유모차, 아기 케리어에 모기장 사용</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [주의, 상]-->
+    <array name="behavior_3_above_public_items">
+        <item>오후 7시 이후 출입문, 창문(방충망 없는) 열어 놓지 않도록 주의</item>
+        <item>아파트 거주민 모기장 사용</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [불쾌, 하]-->
+    <array name="behavior_4_below_public_items">
+        <item>어린이 야간활동 자제</item>
+        <item>취침 시 반드시 모기장 사용</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [불쾌, 중]-->
+    <array name="behavior_4_average_public_items">
+        <item>야외 활동 자제</item>
+        <item>숲 가까이 활동 시 숲모기의 흡혈공격 주의</item>
+    </array>
+
+    <!-- 단계별 방어적 행동 [불쾌, 상]-->
+    <array name="behavior_4_above_public_items">
+        <item>오후 6시 이후 출입문, 창문(방충망 없는) 열어 놓지 않도록 주의</item>
+        <item>야외 활동 후 바로 샤워 실시</item>
+    </array>
+
     <!-- 단계별 수치 [쾌적]-->
     <array name="behavior_1_steps">
         <item>하(0 ~ 83.3)</item>
