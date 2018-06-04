@@ -22,4 +22,5 @@
             android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

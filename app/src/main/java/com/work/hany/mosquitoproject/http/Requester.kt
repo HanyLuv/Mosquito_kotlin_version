@@ -1,11 +1,18 @@
 package com.work.hany.mosquitoproject.http
 
 import android.app.Activity
+import android.support.v4.app.Fragment
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -22,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 
-class Requester(listeningActivity: Activity) {
+class Requester(listeningActivity: Fragment) {
 
     interface RequesterResponse {
         fun receivedResult(photos: List<MosquitoStatus>)
@@ -36,28 +43,42 @@ class Requester(listeningActivity: Activity) {
 
     companion object {
         var baseURL = "http://openapi.seoul.go.kr:8088"
-        var
+        var apiKey = "476e58535872757a31313154704f6753"
     }
 
-    private fun request(): Mosquito{
-
+    public fun request(date: String) {
 
         //http://openapi.seoul.go.kr:8088/476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/2018-02-24
         var okHttpClient = createOkHttpClient()
-        var requestURI = StringBuffer().append(baseURL)
+        var requestURI = StringBuffer()
+                .append(baseURL)
+                .append("/")
+                .append(apiKey).append("/").toString()
+
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://openapi.seoul.go.kr:8088")
+                .baseUrl(requestURI)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create()).build()
 
+        var service  = retrofit.create(MosquitoService::class.java)
+        service.getMosquito("2018-02-24").enqueue(object : Callback<MosquitoStatus> {
+            override fun onFailure(call: Call<MosquitoStatus>?, t: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
-        return Mosquito()
+            override fun onResponse(call: Call<MosquitoStatus>?, response: Response<MosquitoStatus>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.e("HANY_TAG","call : "+call.toString())
+            }
+        })
+
+
     }
 
     //데이터 여러번 보내고 7개를 만들어서 보내야함..
 
 
-    private fun createOkHttpClient(): OkHttpClient {
+    private fun createOkHttpClient(): OkHttpClient { //데이터 로그찍는것.
         val builder = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -90,7 +111,9 @@ class Requester(listeningActivity: Activity) {
  */
 
 
-class RequesterResponse {
+interface MosquitoService {
+    @GET("/json/MosquitoStatus/1/5/{date}")
+    fun getMosquito(@Path("date") date: String): Call<MosquitoStatus>
 
 }
 

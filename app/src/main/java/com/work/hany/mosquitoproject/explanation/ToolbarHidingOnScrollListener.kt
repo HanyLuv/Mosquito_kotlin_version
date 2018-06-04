@@ -33,7 +33,7 @@ class ToolbarHidingOnScrollListener(var titleBarHeight: Int,
         }
     }
 
-    protected fun showToolbar() {
+    private fun showToolbar() {
         toolbarContainer.clearAnimation()
         toolbarContainer
                 .animate()
