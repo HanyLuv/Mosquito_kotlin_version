@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by hany on 2018. 2. 26..
@@ -46,11 +46,13 @@ fun Activity.actionBarHeight(): Int {
  * @description 오늘의 날짜를 기본 포멧형식으로 가져옴.
  * */
 fun Date.todayDate(): String{
-    val date: Date = this
+    return mosquitoDateFormatting(this)
+}
+
+private fun mosquitoDateFormatting(date: Date): String {
     var formatter = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
     return formatter.format(date)
 }
-
 
 /**
  *
@@ -58,6 +60,19 @@ fun Date.todayDate(): String{
  * @description 오늘의 날짜를 기준으로 7일전의 날짜리스트를 반환한다.
  */
 
+fun Date.weekDate(): ArrayList<String> {
+    val calender = Calendar.getInstance()
+    var weekData = arrayListOf<String>()
+    weekData.add(todayDate())
+
+    for ( count in 1 until 7 ) {
+        calender.add(Calendar.DAY_OF_MONTH, -1)
+        weekData.add(mosquitoDateFormatting(calender.time))
+    }
+
+    calender.add(Calendar.DAY_OF_MONTH,7)
+    return weekData
+}
 //fun Date.weekDate(): ArrayList<String> {
 //    val weekData = ArrayList<String>()
 //    weekData.add(getTodayDate())

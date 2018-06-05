@@ -13,18 +13,13 @@ import com.work.hany.mosquitoproject.http.Requester
  * Created by hany on 2018. 2. 25..
  * 오늘의모기예보
  */
-class TodayMosquitoForecastFragment: Fragment(),TodayMosquitoForecastContract.View, Requester.RequesterResponse {
-    override fun receivedResult(photos: List<MosquitoStatus>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class TodayMosquitoForecastFragment: Fragment(),TodayMosquitoForecastContract.View{
 
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var root = inflater.inflate(R.layout.framgnet_today,container,false)
 
-        Requester(this).request("")
         return root
     }
     companion object {

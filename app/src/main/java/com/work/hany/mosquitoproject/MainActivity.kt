@@ -4,12 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastFragment
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastPresenter
-import com.work.hany.mosquitoproject.http.MosquitoStatus
 import com.work.hany.mosquitoproject.http.Requester
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionFragment
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionPresenter
@@ -20,6 +20,15 @@ import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
+    override fun receivedResult(photos: Map<String, Float>) {
+
+        photos.forEach { date, value->
+            Log.e("HANY_TAG", "DATE : $date / VALUE : $value")
+
+        }
+
+    }
+
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
@@ -40,6 +49,8 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
             replaceFragmentInActivity(it, R.id.main_fragment_container)
             TodayMosquitoForecastPresenter(it)
         }
+
+        Requester(this).request()
 
     }
 
@@ -119,7 +130,4 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
     //일주일간 데이터를 반환함.
     // 간혹가다 데이터가 없는경우가 있음..
 
-    override fun receivedResult(photos: List<MosquitoStatus>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

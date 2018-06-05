@@ -2,8 +2,9 @@ package com.work.hany.mosquitoproject.http
 
 import android.app.Activity
 import android.support.v4.app.Fragment
-import android.util.Log
 import com.google.gson.annotations.SerializedName
+import com.work.hany.mosquitoproject.MainActivity
+import com.work.hany.mosquitoproject.util.weekDate
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -13,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.util.*
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -29,48 +31,73 @@ import retrofit2.http.Path
  */
 
 
-class Requester(listeningActivity: Fragment) {
+class Requester(listeningActivity: Activity) {
 
     interface RequesterResponse {
-        fun receivedResult(photos: List<MosquitoStatus>)
+        fun receivedResult(photos: Map<String,Float>)
     }
 
     private val responseListener: RequesterResponse
 
     init {
-        responseListener = listeningActivity as RequesterResponse
+        responseListener = listeningActivity as MainActivity
     }
 
     companion object {
-        var baseURL = "http://openapi.seoul.go.kr:8088"
-        var apiKey = "476e58535872757a31313154704f6753"
+        const val baseURL = "http://openapi.seoul.go.kr:8088"
+        const val apiKey = "476e58535872757a31313154704f6753"
+        const val MOSQUITO_COUNT_WEEK = 7
     }
 
-    public fun request(date: String) {
-
+    fun request() {
         //http://openapi.seoul.go.kr:8088/476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/2018-02-24
         var okHttpClient = createOkHttpClient()
         var requestURI = StringBuffer()
-                .append(baseURL)
-                .append("/")
-                .append(apiKey).append("/").toString()
+                .append(baseURL).append("/").toString()
 
         var retrofit = Retrofit.Builder()
                 .baseUrl(requestURI)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create()).build()
 
-        var service  = retrofit.create(MosquitoService::class.java)
-        service.getMosquito("2018-02-24").enqueue(object : Callback<MosquitoStatus> {
-            override fun onFailure(call: Call<MosquitoStatus>?, t: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+        var service = retrofit.create(MosquitoService::class.java)
+        var mosquitoes = mutableMapOf<String, Float>()
 
-            override fun onResponse(call: Call<MosquitoStatus>?, response: Response<MosquitoStatus>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                Log.e("HANY_TAG","call : "+call.toString())
-            }
-        })
+        var weekDate = Date().weekDate()
+
+        for (date in weekDate) {
+            service.getMosquito(apiKey, "2018-06-30").enqueue(object : Callback<MosquitoResult> {
+                override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {}
+
+                override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
+                    response?.body()?.let {
+                        if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
+                            var key = it.mosquitoStatus.row[0].mosquitoDate
+                            var value = it.mosquitoStatus.row[0].mosquitoValue
+                            mosquitoes[key] = value
+
+                        } else {
+                            mosquitoes[date] = 0.0f
+
+                        }
+                    }
+
+                    if (mosquitoes.size >= MOSQUITO_COUNT_WEEK) {
+                        /** 값이 비동기로 들어와서 여기서 한번 정렬해서 넣어줘야한다.*/
+                        var sortMosquitoes = mutableMapOf<String, Float>()
+                        weekDate.forEach { date ->
+                            mosquitoes[date]?.let {
+                                sortMosquitoes[date] = it
+                            }
+                        }
+
+                        responseListener.receivedResult(sortMosquitoes)
+                    }
+
+                }
+            })
+
+        }
 
 
     }
@@ -112,10 +139,12 @@ class Requester(listeningActivity: Fragment) {
 
 
 interface MosquitoService {
-    @GET("/json/MosquitoStatus/1/5/{date}")
-    fun getMosquito(@Path("date") date: String): Call<MosquitoStatus>
+    @GET("{api_key}/json/MosquitoStatus/1/5/{date}")
+    fun getMosquito(@Path("api_key") apiKey: String,@Path("date") date: String): Call<MosquitoResult>
 
 }
+
+data class MosquitoResult(@SerializedName("MosquitoStatus") var mosquitoStatus: MosquitoStatus)
 
 data class MosquitoStatus(@SerializedName("list_total_count") var listTotalCount: Int,
                           @SerializedName("RESULT") var result: Result,
@@ -127,4 +156,4 @@ data class Result(
 
 data class Mosquito(
         @SerializedName("MOSQUITO_DATE") var mosquitoDate: String,
-        @SerializedName("MOSQUITO_VALUE") var mosquitoValue: String)
+        @SerializedName("MOSQUITO_VALUE") var mosquitoValue: Float)
