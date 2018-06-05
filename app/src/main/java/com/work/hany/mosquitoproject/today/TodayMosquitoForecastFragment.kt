@@ -14,18 +14,22 @@ import com.work.hany.mosquitoproject.http.Requester
  * 오늘의모기예보
  */
 class TodayMosquitoForecastFragment: Fragment(),TodayMosquitoForecastContract.View{
+    override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var root = inflater.inflate(R.layout.framgnet_today,container,false)
+        presenter.createMosquitoChart()
 
         return root
     }
+
     companion object {
         fun newInstance() = TodayMosquitoForecastFragment()
     }
-
 
 
 

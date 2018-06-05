@@ -34,7 +34,8 @@ import java.util.*
 class Requester(listeningActivity: Activity) {
 
     interface RequesterResponse {
-        fun receivedResult(photos: Map<String,Float>)
+        fun receivedResult(mosquitoes: Map<String,Float>)
+        fun failedResult(errorMsg: String)
     }
 
     private val responseListener: RequesterResponse
@@ -66,8 +67,10 @@ class Requester(listeningActivity: Activity) {
         var weekDate = Date().weekDate()
 
         for (date in weekDate) {
-            service.getMosquito(apiKey, "2018-06-30").enqueue(object : Callback<MosquitoResult> {
-                override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {}
+            service.getMosquito(apiKey, date).enqueue(object : Callback<MosquitoResult> {
+                override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
+                    responseListener.failedResult(t.toString())
+                }
 
                 override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
                     response?.body()?.let {

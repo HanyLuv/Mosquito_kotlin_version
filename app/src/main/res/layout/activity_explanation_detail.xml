@@ -8,7 +8,6 @@
     <ImageView
         android:id="@+id/detailFragmentContainer"
         style="@style/BehaviorAnimations.Background.Big"
-        android:background="@drawable/puppy"
         android:transitionName="@string/behavior_background_name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

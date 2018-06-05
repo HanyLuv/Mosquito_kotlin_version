@@ -2,6 +2,7 @@ package com.work.hany.mosquitoproject
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
@@ -20,15 +21,25 @@ import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
-    override fun receivedResult(photos: Map<String, Float>) {
+    /**@description receive mosquito data. */
+    override fun failedResult(errorMsg: String) {
+        Snackbar.make(main_fragment_container, errorMsg, Snackbar.LENGTH_SHORT)
+        progressbar.visibility = View.GONE
+    }
 
-        photos.forEach { date, value->
-            Log.e("HANY_TAG", "DATE : $date / VALUE : $value")
+    override fun receivedResult(mosquitoes: Map<String, Float>) {
+        mosquitoes.forEach { date, value ->
+            Log.e("HANY [MainActivity] ", "DATE : $date / VALUE : $value")
 
         }
 
-    }
+        TodayMosquitoForecastFragment.newInstance().also {
+            replaceFragmentInActivity(it, R.id.main_fragment_container)
+            TodayMosquitoForecastPresenter(it, mosquitoes)
+        }
+        progressbar.visibility = View.GONE
 
+    }
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
@@ -44,11 +55,6 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
         setupDrawerContent()
         setupDrawerToggle()
-
-        TodayMosquitoForecastFragment.newInstance().also {
-            replaceFragmentInActivity(it, R.id.main_fragment_container)
-            TodayMosquitoForecastPresenter(it)
-        }
 
         Requester(this).request()
 

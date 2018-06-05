@@ -10,11 +10,11 @@ import com.work.hany.mosquitoproject.BaseView
  */
 interface TodayMosquitoForecastContract {
     interface View: BaseView<Presenter> {
-
+        fun createMosquitoChart(mosquitoes: Map<String, Float>)
 
     }
 
     interface Presenter: BasePresenter {
-
+        fun createMosquitoChart()
     }
 }
