@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/graph_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#E8FFEDAA"
+        app:layout_constraintBottom_toTopOf="@+id/date_text_view" />
+
+    <View
+        android:id="@+id/graph_point_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/graph_round_point" />
+
+    <TextView
+        android:id="@+id/graph_point_value_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="400.3"
+        app:layout_constraintTop_toBottomOf="@id/graph_point_view" />
+
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="3월 20일"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</android.support.constraint.ConstraintLayout>

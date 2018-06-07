@@ -8,21 +8,23 @@ import android.view.ViewGroup
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.http.MosquitoStatus
 import com.work.hany.mosquitoproject.http.Requester
+import kotlinx.android.synthetic.main.framgnet_today.*
 
 /**
  * Created by hany on 2018. 2. 25..
  * 오늘의모기예보
  */
-class TodayMosquitoForecastFragment: Fragment(),TodayMosquitoForecastContract.View{
+class TodayMosquitoForecastFragment: Fragment(),TodayMosquitoForecastContract.View {
+
+
     override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        line_chart.l
     }
 
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var root = inflater.inflate(R.layout.framgnet_today,container,false)
-        presenter.createMosquitoChart()
 
         return root
     }
