@@ -7,9 +7,8 @@ class TodayMosquitoForecastPresenter(var todayMosquitoForecastView: TodayMosquit
                                      private val mosquitoes: Map<String, Float>): TodayMosquitoForecastContract.Presenter {
 
     init {
-        createMosquitoChart()
+        todayMosquitoForecastView.presenter = this
     }
-
     override fun createMosquitoChart() {
         todayMosquitoForecastView.createMosquitoChart(mosquitoes)
     }

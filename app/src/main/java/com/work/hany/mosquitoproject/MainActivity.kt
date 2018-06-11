@@ -33,11 +33,13 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
         }
 
-        TodayMosquitoForecastFragment.newInstance().also {
+       var fragment = TodayMosquitoForecastFragment.newInstance().also {
             replaceFragmentInActivity(it, R.id.main_fragment_container)
-            TodayMosquitoForecastPresenter(it, mosquitoes)
         }
+        TodayMosquitoForecastPresenter(fragment, mosquitoes)
+
         progressbar.visibility = View.GONE
+
 
     }
 
