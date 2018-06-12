@@ -11,11 +11,8 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import com.andexert.library.RippleView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.Situation
@@ -23,7 +20,6 @@ import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForec
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter.ClickListener
 import com.work.hany.mosquitoproject.util.actionBarHeight
-import java.io.Serializable
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -52,6 +48,8 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
 
         var actionBarHeight = activity.actionBarHeight()
         //어댑터 반드시 수정필요한듯
+        //과거의 나야. 왜 수정 필요하다고 햇니 ? ㅠㅡㅠ
+
         adapter = ExplanationRecyclerAdapter(object : ClickListener {
             override fun onClick(view: View, behavior: Behavior) {
                 presenter.onListItemTapped(view, behavior)
@@ -89,8 +87,8 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
 
         Toast.makeText(context, "모기예보제란", Toast.LENGTH_SHORT).show()
 
-        //어떻게 할지 고민된다
-//        activity.replaceFragmentInActivity(VideoTabFragment(), R.id.main_fragment_container) }
+        //비디오를 넣을까 말까 고민.
+//        activity.replaceFragmentInActivity(VideoTabFragment(), R.id.main_fragment_container)
     }
 
     override fun showSituationTab(items: List<Situation>) {

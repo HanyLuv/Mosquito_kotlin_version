@@ -82,7 +82,7 @@ class ToolbarHidingOnScrollListener(var titleBarHeight: Int,
     }
 
 
-    protected fun showToolbarBy(dy: Int) {
+    private fun showToolbarBy(dy: Int) {
         if (cannotShowMore(dy)) {
             toolbarContainer.translationY = 0f
         } else {

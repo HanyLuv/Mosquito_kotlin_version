@@ -13,7 +13,6 @@ import com.work.hany.mosquitoproject.data.DataManager
  */
 class ExplanationMosquitoForecastPresenter(var view: ExplanationMosquitoForecastContract.View) : ExplanationMosquitoForecastContract.Presenter {
 
-    private var dataManager = DataManager()
 
     init {
         view.presenter = this
@@ -27,9 +26,9 @@ class ExplanationMosquitoForecastPresenter(var view: ExplanationMosquitoForecast
 
     override fun onTabbBarMenuTapped(tabBarItemView: View) {
         when (tabBarItemView.id) {
-            R.id.behaviortab -> view.showBehaviorTab(dataManager.createBehaviorItems(tabBarItemView.context))
+            R.id.behaviortab -> view.showBehaviorTab(DataManager.instance.createBehaviorItems(tabBarItemView.context))
             R.id.videotab -> view.showVideoTab()
-            R.id.situationtab -> view.showSituationTab(dataManager.createSituationItems(tabBarItemView.context))
+            R.id.situationtab -> view.showSituationTab(DataManager.instance.createSituationItems(tabBarItemView.context))
         }
     }
 

@@ -1,6 +1,7 @@
 package com.work.hany.mosquitoproject.util
 
 import android.app.Activity
+import android.content.res.Resources
 import android.support.v7.app.ActionBar
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
@@ -73,17 +74,6 @@ fun Date.weekDate(): ArrayList<String> {
     calender.add(Calendar.DAY_OF_MONTH,7)
     return weekData
 }
-//fun Date.weekDate(): ArrayList<String> {
-//    val weekData = ArrayList<String>()
-//    weekData.add(getTodayDate())
-//    for (count in 1 until WEEK) {
-//        mCalendar.add(mCalendar.DAY_OF_MONTH, OEN_DAY)
-//        weekData.add(formattingDate(mCalendar.getTime()))
-//    }
-//    mCalendar.add(mCalendar.DAY_OF_MONTH, WEEK)
-//    LogManager.e("list " + weekData.toString() + " size " + weekData.size)
-//    return weekData
-//}
 
 /** fragment 사용하면 add(...)가 자주 불리니깐 inline 처리한듯 부담되지않도록 */
 private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
@@ -91,4 +81,6 @@ private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Un
         action()
     }.commit()
 }
+
+fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density.toInt())
 

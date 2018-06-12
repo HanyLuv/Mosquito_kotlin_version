@@ -19,6 +19,8 @@ import com.work.hany.mosquitoproject.today.TodayMosquitoForecastPresenter
 import com.work.hany.mosquitoproject.util.replaceFragmentInActivity
 import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.reflect.Array
+import java.util.*
 
 class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
     /**@description receive mosquito data. */
@@ -30,13 +32,13 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
     override fun receivedResult(mosquitoes: Map<String, Float>) {
         mosquitoes.forEach { date, value ->
             Log.e("HANY [MainActivity] ", "DATE : $date / VALUE : $value")
-
         }
 
-       var fragment = TodayMosquitoForecastFragment.newInstance().also {
+
+        TodayMosquitoForecastFragment.newInstance().also {
             replaceFragmentInActivity(it, R.id.main_fragment_container)
+            TodayMosquitoForecastPresenter(it, mosquitoes.toSortedMap())
         }
-        TodayMosquitoForecastPresenter(fragment, mosquitoes)
 
         progressbar.visibility = View.GONE
 

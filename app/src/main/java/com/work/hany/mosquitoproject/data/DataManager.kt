@@ -2,17 +2,70 @@ package com.work.hany.mosquitoproject.data
 
 import android.content.Context
 import com.work.hany.mosquitoproject.R
-import java.util.*
-import kotlin.collections.ArrayList
+import android.text.TextUtils
+
+
 
 /**
  * Created by hany on 2018. 3. 4..
+ * single tone
  */
-class DataManager {
+class DataManager private constructor(){
+
+    private object Holder {
+        var INSTANCE = DataManager()
+    }
 //
-//    companion object {
-//        fun newInstance() = DataManager()
+    companion object {
+        val instance: DataManager by lazy {
+            Holder.INSTANCE
+        }
+    }
+//
+//    private fun getMosquitoStep(mqValue: String): String {
+//        var mqStep = Key.STEP_NULL
+//        if (TextUtils.isEmpty(mqValue)) {
+//            return mqStep
+//        }
+//        val fMqValue = java.lang.Float.valueOf(mqValue)
+//        if (fMqValue >= 0 && fMqValue <= 250) {
+//            mqStep = Key.STEP_ONE
+//        } else if (fMqValue >= 251 && fMqValue <= 500) {
+//            mqStep = Key.STEP_TWO
+//        } else if (fMqValue >= 501 && fMqValue <= 750) {
+//            mqStep = Key.STEP_THREE
+//        } else if (fMqValue >= 751) {
+//            mqStep = Key.STEP_FOUR
+//        }
+//        return mqStep
+//
 //    }
+//
+    /***
+     *
+     *
+    String STEP_ONE = "1단계(쾌적)";
+    String STEP_TWO = "2단계(관심)";
+    String STEP_THREE = "3단계(주의)";
+    String STEP_FOUR = "4단계(불쾌)";
+    String STEP_NULL = "NULL";
+     */
+    /** 모기 발생 단계를 체크한다.
+     * 어디 적합한....  클래스가 어디일까? */
+
+    fun mosquitoStage(mosquitoValue: Int): String {
+        var step = "없음" //값이 안들어오는 경우 테스트 해야한다.
+        if (mosquitoValue in 0..250) {
+            step = "쾌적"
+        } else if (mosquitoValue in 251..500) {
+            step = "관심"
+        } else if (mosquitoValue in 501..750) {
+            step = "주의"
+        } else if (mosquitoValue >= 751) {
+            step = "불쾌"
+        }
+        return step
+    }
 
     fun createBehaviorItems(context: Context): List<Behavior> {
         var resource = context.resources

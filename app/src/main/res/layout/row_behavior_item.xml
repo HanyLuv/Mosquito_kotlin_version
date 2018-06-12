@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
+     android:background="@color/colorPrimary"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="5dp">
 
-    <com.andexert.library.RippleView
+    <ImageView
         android:id="@+id/background_view"
         style="@style/BehaviorAnimations.Background.Small"
         android:scaleType="centerCrop"

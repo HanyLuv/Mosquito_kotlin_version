@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/title_text_view"
+    <FrameLayout
+        android:id="@+id/parent_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="오늘의 모기 예보"
-        android:textSize="30sp"
-        />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/divider_view"/>
 
-    <LinearLayout
-        android:id="@+id/graph_parent_layout"
+    <View
+        android:id="@+id/divider_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/title_text_view"/>
+        android:layout_height="1dp"
+        android:layout_above="@+id/view_mosquito_stage_layout"
+        android:background="#D7DBDD" />
 
+    <include
+        android:id="@+id/view_mosquito_stage_layout"
+        layout="@layout/view_mosquito_stage"/>
+    <!--<TextView-->
+        <!--android:id="@+id/title_text_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="오늘의 모기 예보"-->
+        <!--android:textSize="30sp" />-->
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
