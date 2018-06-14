@@ -28,10 +28,10 @@ class ExplanationRecyclerAdapter(private var clickListener: ClickListener) : Rec
     }
 
     override fun getItemViewType(position: Int): Int {
-        when (items[position].type) {
-            Type.HEADER -> return Type.HEADER.code
-            Type.BEHAVIOR -> return Type.BEHAVIOR.code
-            Type.SITUATION -> return Type.SITUATION.code
+        return when (items[position].type) {
+            Type.HEADER -> Type.HEADER.code
+            Type.BEHAVIOR -> Type.BEHAVIOR.code
+            Type.SITUATION -> Type.SITUATION.code
         }
     }
 
@@ -39,12 +39,11 @@ class ExplanationRecyclerAdapter(private var clickListener: ClickListener) : Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Explanation> {
         var inflater = LayoutInflater.from(parent.context)
         //TODO : 해결
-        if (viewType == Type.BEHAVIOR.code)
-            return BehaviorViewHolder(inflater.inflate(R.layout.row_behavior_item, parent, false),clickListener) as BaseViewHolder<Explanation>
-        else if (viewType == Type.SITUATION.code)
-            return SituationViewHolder(inflater.inflate(R.layout.row_situation_item, parent, false)) as BaseViewHolder<Explanation>
-        else
-            return HeaderViewHolder(inflater.inflate(R.layout.row_header_item, parent, false))
+        return when (viewType) {
+            Type.BEHAVIOR.code -> BehaviorViewHolder(inflater.inflate(R.layout.row_behavior_item, parent, false),clickListener) as BaseViewHolder<Explanation>
+            Type.SITUATION.code -> SituationViewHolder(inflater.inflate(R.layout.row_situation_item, parent, false)) as BaseViewHolder<Explanation>
+            else -> HeaderViewHolder(inflater.inflate(R.layout.row_header_item, parent, false))
+        }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<Explanation>, position: Int) {

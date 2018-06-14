@@ -125,9 +125,11 @@
         <item>생활주변 물이 고일 수 있는 인공용기 제거</item>
     </array>
 
-    <!-- 단계별 방어적 행동 [관심, 상]-->
+    <!-- 단계별 적극적 행동 [관심, 상]-->
     <array name="behavior_2_above_active_items">
         <item>제거 못한 인공용기 빗물 고임 차단</item>
+        <item>주택 옥상에 받아 놓은 빗물 통에 뚜껑 설치</item>
+        <item>단독주택 정화조 환기구에 모기망 설치</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 하]-->
@@ -197,8 +199,8 @@
 
     <!-- 단계별 방어적 행동 [관심, 상]-->
     <array name="behavior_2_above_public_items">
-        <item>문과 창문 방충망 수리</item>
-        <item>정화조의 금이나 틈새 수리하기</item>
+        <item>야외 서식 모기유충 방제</item>
+        <item>모기 성충발생 모니터링</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 하]-->

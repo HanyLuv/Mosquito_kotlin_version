@@ -2,7 +2,7 @@ package com.work.hany.mosquitoproject.today
 
 import com.work.hany.mosquitoproject.BasePresenter
 import com.work.hany.mosquitoproject.BaseView
-import com.work.hany.mosquitoproject.data.Behavior
+import com.work.hany.mosquitoproject.data.Step
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -12,7 +12,7 @@ import com.work.hany.mosquitoproject.data.Behavior
 interface TodayMosquitoForecastContract {
     interface View: BaseView<Presenter> {
         fun createMosquitoChart(mosquitoes: Map<String, Float>)
-        fun createMosquitoStageLayout(behavior :Behavior)
+        fun createMosquitoStageLayout(todayDate: String, step :Step)
 
     }
 

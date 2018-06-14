@@ -3,28 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/view_mosquito_stage_layout"
+        layout="@layout/view_mosquito_stage" />
+
     <FrameLayout
         android:id="@+id/parent_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/divider_view"/>
+        android:layout_below="@id/view_mosquito_stage_title_text_view"
+        android:layout_toRightOf="@id/numerical_value_layout" />
 
     <View
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@+id/view_mosquito_stage_layout"
+        android:layout_below="@+id/view_mosquito_stage_layout"
         android:background="#D7DBDD" />
 
-    <include
-        android:id="@+id/view_mosquito_stage_layout"
-        layout="@layout/view_mosquito_stage"/>
+
+    <TextView
+        android:id="@+id/view_mosquito_stage_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@id/divider_view"
+        android:text="일주일간 변동 추이" />
+
+    <LinearLayout
+        android:id="@+id/numerical_value_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view_mosquito_stage_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="1000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="500" />
+
+    </LinearLayout>
+
     <!--<TextView-->
-        <!--android:id="@+id/title_text_view"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:text="오늘의 모기 예보"-->
-        <!--android:textSize="30sp" />-->
+    <!--android:id="@+id/title_text_view"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="오늘의 모기 예보"-->
+    <!--android:textSize="30sp" />-->
 
 </RelativeLayout>

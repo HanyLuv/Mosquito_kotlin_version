@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
 
         TodayMosquitoForecastFragment.newInstance().also {
             replaceFragmentInActivity(it, R.id.main_fragment_container)
-            TodayMosquitoForecastPresenter(it, mosquitoes.toSortedMap())
+            TodayMosquitoForecastPresenter(this, it, mosquitoes.toSortedMap())
         }
 
         progressbar.visibility = View.GONE

@@ -2,8 +2,6 @@ package com.work.hany.mosquitoproject.data
 
 import android.content.Context
 import com.work.hany.mosquitoproject.R
-import android.text.TextUtils
-
 
 
 /**
@@ -53,18 +51,36 @@ class DataManager private constructor(){
     /** 모기 발생 단계를 체크한다.
      * 어디 적합한....  클래스가 어디일까? */
 
-    fun mosquitoStage(mosquitoValue: Int): String {
+    fun mosquitoStage(mosquitoValue: Float): String {
         var step = "없음" //값이 안들어오는 경우 테스트 해야한다.
-        if (mosquitoValue in 0..250) {
-            step = "쾌적"
-        } else if (mosquitoValue in 251..500) {
-            step = "관심"
-        } else if (mosquitoValue in 501..750) {
-            step = "주의"
-        } else if (mosquitoValue >= 751) {
-            step = "불쾌"
+        when {
+            mosquitoValue in 0..250 -> step = "쾌적"
+            mosquitoValue in 251..500 -> step = "관심"
+            mosquitoValue in 501..750 -> step = "주의"
+            mosquitoValue >= 751 -> step = "불쾌"
         }
         return step
+    }
+
+    fun mosquitoStageIndex(mosquitoValue: Float): Int {
+        var index = 0
+        when {
+            mosquitoValue in 0.0..83.3 -> index = 0
+            mosquitoValue in 500.1..583.3 -> index = 0
+            mosquitoValue in 250.1..333.3 -> index = 0
+            mosquitoValue in 750.1..833.3 -> index = 0
+
+            mosquitoValue in 83.4..166.6 -> index = 1
+            mosquitoValue in 333.4..416.6 -> index = 1
+            mosquitoValue in 583.4..666.6 -> index = 1
+            mosquitoValue in 833.4..916.6 -> index = 1
+
+            mosquitoValue in 166.7..250.0 -> index = 2
+            mosquitoValue in 416.7..500.0 -> index = 2
+            mosquitoValue in 666.7..750.0 -> index = 2
+            mosquitoValue >= 916.7 -> index = 2
+        }
+        return index
     }
 
     fun createBehaviorItems(context: Context): List<Behavior> {
@@ -80,11 +96,11 @@ class DataManager private constructor(){
 
             var strStepRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_steps").toString()
             var stepsRes = resource.getIdentifier(strStepRes, null, context.packageName)
-            var stepCategoris = resource.getStringArray(stepsRes)
+            var stepCategories = resource.getStringArray(stepsRes)
 
             var stepCount = 0
             var steps = ArrayList<Step>()
-            for (stepCategory in stepCategoris) {
+            stepCategories.forEach { stepCategory ->
 
                 var strDefensiveRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_").append(resKey[stepCount]).append("_defensive_items").toString()
                 var defensiveItemsRes = resource.getIdentifier(strDefensiveRes, null, context.packageName)
@@ -104,7 +120,9 @@ class DataManager private constructor(){
             }
 
             behaviorItems.add(Behavior(Type.BEHAVIOR, title, steps))
+            levelCount++
         }
+
 
         return behaviorItems
     }
