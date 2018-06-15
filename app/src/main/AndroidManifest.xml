@@ -20,7 +20,16 @@
         <activity
             android:name=".explanation.detail.ExplanationMosquitoForecastDetailActivity"
             android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />
+
+        <receiver android:name=".widget.TodayMosquitoProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_mosquito_information" />
+        </receiver>
+
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

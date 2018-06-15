@@ -38,108 +38,16 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/today_mosquito_value_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp">
-
-            <View
-                android:id="@+id/today_mosquito_value_bar_bg_view"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:background="#F0F3F4" />
-
-            <View
-                android:id="@+id/today_mosquito_value_bar_view"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:background="#F5B7B1" />
-
-            <TextView
-                android:id="@+id/today_mosquito_value_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="5dp"
-                android:text="0"
-                android:textSize="23sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/today_mosquito_value_bar_bg_view"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/today_mosquito_value_bar_bg_view"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/today_mosquito_value_bar_bg_view"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="500"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/today_mosquito_value_bar_bg_view"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="1000"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="모기발생단계"
-            android:textSize="9sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="모기활동지수"
-            android:textSize="9sp" />
-
-    </RelativeLayout>
+    <include layout="@layout/view_mosquito_today_state_bar" />
 
 
     <View
-        android:layout_marginTop="5dp"
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/view_mosquito_stage_layout"
+        android:layout_marginTop="5dp"
         android:background="#D7DBDD" />
-
 
 
     <TextView

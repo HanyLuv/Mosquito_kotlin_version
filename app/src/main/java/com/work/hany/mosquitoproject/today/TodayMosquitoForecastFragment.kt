@@ -51,10 +51,10 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = todayMosquito.mosquitoValue.toString()
 
         // TODO 애니메이션 넣어주어 자연스럽게 그리도록하자
-        var stateBarBackgroundWidth = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_bg_view).width
+        var stateBarBackgroundWidth = stageInformationLayout.findViewById<FrameLayout>(R.id.today_mosquito_value_bar_bg_view).width
         var result = todayMosquito.mosquitoValue * stateBarBackgroundWidth / 1000 //정밀하게 그릴수있도록 수정 작업 필요함.. 뷰를 하나 커스텀해서 만들어야할듯.
         var stateBarView = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_view)
-        var stateBarViewParams = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_view).layoutParams
+        var stateBarViewParams = stageInformationLayout.findViewById<FrameLayout>(R.id.today_mosquito_value_bar_view).layoutParams
         stateBarView.layoutParams = RelativeLayout.LayoutParams(Math.floor(result.toDouble()).toInt() ,stateBarViewParams.height)
 
     }
