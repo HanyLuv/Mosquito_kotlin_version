@@ -14,15 +14,15 @@
         <FrameLayout
             android:id="@+id/today_mosquito_value_bar_bg_view"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:background="#F0F3F4" />
 
         <FrameLayout
             android:id="@+id/today_mosquito_value_bar_view"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:background="#F5B7B1" />
@@ -35,7 +35,7 @@
             android:layout_centerInParent="true"
             android:layout_marginRight="5dp"
             android:text="0"
-            android:textSize="23sp" />
+            android:textSize="21sp" />
 
         <LinearLayout
             android:layout_width="match_parent"

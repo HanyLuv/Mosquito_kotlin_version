@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.v4.app.Fragment
 import com.google.gson.annotations.SerializedName
 import com.work.hany.mosquitoproject.MainActivity
+import com.work.hany.mosquitoproject.util.todayDate
 import com.work.hany.mosquitoproject.util.weekDate
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,23 +32,59 @@ import java.util.*
  */
 
 
-class Requester(listeningActivity: Activity) {
+class Requester(private var responseListener: RequesterResponse) {
 
     interface RequesterResponse {
         fun receivedResult(mosquitoes: Map<String,Float>)
         fun failedResult(errorMsg: String)
     }
 
-    private val responseListener: RequesterResponse
-
-    init {
-        responseListener = listeningActivity as MainActivity
-    }
-
     companion object {
         const val baseURL = "http://openapi.seoul.go.kr:8088"
         const val apiKey = "476e58535872757a31313154704f6753"
         const val MOSQUITO_COUNT_WEEK = 7
+    }
+
+
+    /**@description for widget. */
+    //TODO 요청하는데 있어서. 중복 코드 정리 필요함
+    fun requestToday(){
+        var okHttpClient = createOkHttpClient()
+        var requestURI = StringBuffer()
+                .append(baseURL).append("/").toString()
+
+        var retrofit = Retrofit.Builder()
+                .baseUrl(requestURI)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create()).build()
+
+        var service = retrofit.create(MosquitoService::class.java)
+        var todayDate = Date().todayDate()
+        var mosquitoes = mutableMapOf<String, Float>()
+
+
+        service.getMosquito(apiKey, todayDate).enqueue(object : Callback<MosquitoResult> {
+            override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
+                responseListener.failedResult(t.toString())
+            }
+
+            override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
+                response?.body()?.let {
+                    if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
+                        var key = it.mosquitoStatus.row[0].mosquitoDate
+                        var value = it.mosquitoStatus.row[0].mosquitoValue
+                        mosquitoes[key] = value
+
+                    } else {
+                        mosquitoes[todayDate] = 0.0f
+
+                    }
+
+                    responseListener.receivedResult(mosquitoes)
+                }
+
+            }
+        })
     }
 
     fun request() {

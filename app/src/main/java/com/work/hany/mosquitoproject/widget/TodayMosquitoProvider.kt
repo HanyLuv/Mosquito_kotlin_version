@@ -2,11 +2,33 @@ package com.work.hany.mosquitoproject.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.widget.RemoteViews
 import com.work.hany.mosquitoproject.R
+import com.work.hany.mosquitoproject.http.Mosquito
+import com.work.hany.mosquitoproject.http.Requester
+import com.work.hany.mosquitoproject.util.dateFormatKorea
+import com.work.hany.mosquitoproject.util.todayDate
+import java.util.*
 
-class TodayMosquitoProvider: AppWidgetProvider() {
+class TodayMosquitoProvider : AppWidgetProvider(), Requester.RequesterResponse {
+
+    private lateinit var context: Context
+
+    override fun receivedResult(mosquitoes: Map<String, Float>) {
+        mosquitoes[Date().todayDate()]?.let { mosquitoValue ->
+            updateWidget(context,Mosquito(Date().todayDate(),mosquitoValue) )
+        }
+
+    }
+
+    override fun failedResult(errorMsg: String) {
+        //TODO 데이터 안넘어온것이니 업데이트 안됐다는 화면 띄워주자
+
+
+    }
+
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
@@ -15,6 +37,9 @@ class TodayMosquitoProvider: AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
+        this.context = context
+
+        Requester(this).requestToday()
         // Enter relevant functionality for when the first widget is created
     }
 
@@ -23,16 +48,28 @@ class TodayMosquitoProvider: AppWidgetProvider() {
     }
 
     companion object {
+        //TODO 리퀘스트 바꿔야할듯..
+
+        fun updateWidget(context: Context, todayMosquito: Mosquito) {
+
+            var mosquitoWidgetView = RemoteViews(context.packageName, R.layout.widget_mosquito)
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val widgetComponent = ComponentName(context, TodayMosquitoProvider::class.java)
+            val widgetIds = appWidgetManager.getAppWidgetIds(widgetComponent)
+
+//            mosquitoWidgetView.set(R.id.today_mosquito_value_bar_view , "width",400.0f)
+//            mosquitoWidgetView.get
+            mosquitoWidgetView.setTextViewText(R.id.widget_today_mosquito_text_view,todayMosquito.mosquitoDate.dateFormatKorea())
+            mosquitoWidgetView.setTextViewText(R.id.today_mosquito_value_text_view,todayMosquito.mosquitoValue.toString())
+
+
+//            mosquitoWidgetView.
+            appWidgetManager.updateAppWidget(widgetIds, mosquitoWidgetView)
+        }
 
         internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-
-            val widgetText = "안녕"
-            // Construct the RemoteViews object
-            val views = RemoteViews(context.packageName, R.layout.widget_mosquito)
-//            views.setTextViewText(R.id.appwidget_text, widgetText)
-
-            // Instruct the widget manager to update the widget
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+            val mosquitoWidgetView = RemoteViews(context.packageName, R.layout.widget_mosquito)
+            appWidgetManager.updateAppWidget(appWidgetId, mosquitoWidgetView)
         }
     }
 }
