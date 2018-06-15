@@ -137,7 +137,6 @@
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
         android:layout_below="@+id/view_mosquito_stage_layout"
         android:background="#D7DBDD" />
 
@@ -146,9 +145,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="2dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:layout_margin="5dp"
         android:text="행동수칙 및 방제법 "
         android:textSize="15sp" />
 
