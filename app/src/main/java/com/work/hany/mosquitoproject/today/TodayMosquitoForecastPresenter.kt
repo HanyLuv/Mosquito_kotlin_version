@@ -3,6 +3,7 @@ package com.work.hany.mosquitoproject.today
 import android.content.Context
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.DataManager
+import com.work.hany.mosquitoproject.http.Mosquito
 import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
@@ -24,14 +25,14 @@ class TodayMosquitoForecastPresenter(context: Context, var view: TodayMosquitoFo
 
 
     override fun createMosquitoStageLayout() {
-        mosquitoes[todayDate]?.let {
-            var stage = DataManager.instance.mosquitoStage(it)
-            var stageIndex = DataManager.instance.mosquitoStageIndex(it)
+        mosquitoes[todayDate]?.let { mosquitoValue ->
+            var stage = DataManager.instance.mosquitoStage(mosquitoValue)
+            var stageIndex = DataManager.instance.mosquitoStageIndex(mosquitoValue)
 
             for (behavior in behaviors) {
                 if (behavior.levelTitle == stage) {
                     behavior.steps[stageIndex].let {
-                        view.createMosquitoStageLayout(todayDate.dateFormatKorea(),it)
+                        view.createMosquitoStageLayout(Mosquito(todayDate, mosquitoValue), it)
                     }
 
                     break

@@ -8,7 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="2018년 6월 21일"
+            android:text="0000년 0월 00일"
             android:textSize="20sp" />
 
 
@@ -57,21 +59,22 @@
                 android:background="#F0F3F4" />
 
             <View
-                android:layout_width="50dp"
+                android:id="@+id/today_mosquito_value_bar_view"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:background="#F5B7B1" />
 
             <TextView
+                android:id="@+id/today_mosquito_value_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="23sp"
-                android:layout_marginRight="5dp"
-                android:layout_centerInParent="true"
                 android:layout_alignParentRight="true"
-                android:text="492.7"
-                />
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:text="0"
+                android:textSize="23sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,21 +132,34 @@
     </RelativeLayout>
 
 
+    <View
+        android:layout_marginTop="5dp"
+        android:id="@+id/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/view_mosquito_stage_layout"
+        android:background="#D7DBDD" />
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="행동수칙 및 방제법 "
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D7DBDD"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="개인 "
-        android:textSize="18sp" />
+        android:background="#EAEDED"
+        android:padding="5dp"
+        android:text="개인"
+        android:textSize="15sp" />
 
 
     <TextView
@@ -151,18 +167,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="적극적 행동 요령 설명!! "
-        android:textSize="16sp" />
+        android:paddingLeft="5dp"
+        android:text="행동요령"
+        android:textSize="14sp" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D7DBDD"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="기관 / 사회 "
-        android:textSize="18sp" />
+        android:background="#EAEDED"
+        android:padding="5dp"
+        android:text="기관 / 사회"
+        android:textSize="15sp" />
 
 
     <TextView
@@ -170,6 +186,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="적극적 행동 요령 설명!! "
-        android:textSize="16sp" />
+        android:paddingLeft="5dp"
+        android:text="행동요령"
+        android:textSize="14sp" />
 </LinearLayout>

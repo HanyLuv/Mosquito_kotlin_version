@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastFragment
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastPresenter
 import com.work.hany.mosquitoproject.http.Requester
@@ -23,7 +25,9 @@ import java.lang.reflect.Array
 import java.util.*
 
 class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
-    /**@description receive mosquito data. */
+    /**@description receive mosquito data.
+     *
+     */
     override fun failedResult(errorMsg: String) {
         Snackbar.make(main_fragment_container, errorMsg, Snackbar.LENGTH_SHORT)
         progressbar.visibility = View.GONE
@@ -51,6 +55,9 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        MobileAds.initialize(this, resources.getString(R.string.add_mob_key_test))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
         setupActionBar(R.id.toolbar) {
             setDisplayHomeAsUpEnabled(true)

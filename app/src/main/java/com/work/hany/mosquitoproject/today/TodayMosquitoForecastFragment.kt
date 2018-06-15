@@ -13,6 +13,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Step
+import com.work.hany.mosquitoproject.http.Mosquito
+import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.dateFormatMMDD
 import com.work.hany.mosquitoproject.util.toDp
 
@@ -25,7 +27,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     private lateinit var parentLayout: FrameLayout
     private lateinit var stageInformationLayout: ViewGroup
 
-    override fun createMosquitoStageLayout(todayDate: String, step: Step) {
+    override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
         var stringBuilder = StringBuilder()
         /** /n 달아주는 함수를 익스텐션으로 빼자.. */
         step.publicBehaviorItems.forEachIndexed { index, stringBehavior ->
@@ -37,9 +39,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
         stringBuilder.setLength(0)
 
-        step.activeBehaviorItems.forEach {
-            stringBuilder.append("- ").append(it).append("\n")
-        }
+        step.activeBehaviorItems.forEach { stringBuilder.append("- ").append(it).append("\n")  }
 
         step.defensiveBehaviorItems.forEachIndexed { index, stringBehavior ->
             stringBuilder.append("- ").append(stringBehavior)
@@ -47,8 +47,15 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         }
 
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = stringBuilder.toString()
+        stageInformationLayout.findViewById<TextView>(R.id.today_date_text_view).text = todayMosquito.mosquitoDate.dateFormatKorea()
+        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = todayMosquito.mosquitoValue.toString()
 
-        stageInformationLayout.findViewById<TextView>(R.id.today_date_text_view).text = todayDate
+        // TODO 애니메이션 넣어주어 자연스럽게 그리도록하자
+        var stateBarBackgroundWidth = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_bg_view).width
+        var result = todayMosquito.mosquitoValue * stateBarBackgroundWidth / 1000 //정밀하게 그릴수있도록 수정 작업 필요함.. 뷰를 하나 커스텀해서 만들어야할듯.
+        var stateBarView = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_view)
+        var stateBarViewParams = stageInformationLayout.findViewById<View>(R.id.today_mosquito_value_bar_view).layoutParams
+        stateBarView.layoutParams = RelativeLayout.LayoutParams(Math.floor(result.toDouble()).toInt() ,stateBarViewParams.height)
 
     }
 
@@ -58,7 +65,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         graphParentLayout.orientation = LinearLayout.HORIZONTAL
         graphParentLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
 
-        var dateTextViewHeight = 15.toDp()
+        var dateTextViewHeight = 10.toDp()
         var graphHeight = parentLayout.height - dateTextViewHeight
 
         mosquitoes.forEach { date, value ->
@@ -77,12 +84,9 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
             graphDateTextView.text = date.dateFormatMMDD()
             graphPointView.translationY = graphHeight - result
-            graphPointTextView.translationY =  graphPointView.translationY + dateTextViewHeight
+
             graphPointTextView.text = StringBuilder().append(value).toString()
-
-            var graphPointTextVieWParams = graphPointTextView.layoutParams as RelativeLayout.LayoutParams
-            graphPointTextVieWParams.addRule(RelativeLayout.BELOW, R.id.graph_point_view)
-
+            graphPointTextView.translationY =  graphPointView.translationY - dateTextViewHeight
             graphParentLayout.addView(graphView)
 
         }
@@ -95,7 +99,6 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         var root = inflater.inflate(R.layout.framgnet_today, container, false)
         parentLayout = root.findViewById(R.id.parent_layout)
         stageInformationLayout = root.findViewById(R.id.view_mosquito_stage_layout)
-        presenter.createMosquitoStageLayout()
 
         return root
     }
@@ -111,6 +114,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         } else {
             stageInformationLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
+        presenter.createMosquitoStageLayout()
         presenter.createMosquitoChartLayout()
     }
 

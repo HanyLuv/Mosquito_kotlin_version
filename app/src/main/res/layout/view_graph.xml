@@ -10,13 +10,12 @@
         android:layout_above="@id/date_text_view"
         android:layout_alignLeft="@id/date_text_view"
         android:layout_alignRight="@id/date_text_view"
-        android:layout_centerHorizontal="true"
-        android:background="#E8FFEDAA">
+        android:layout_centerHorizontal="true">
 
         <View
             android:id="@+id/graph_point_view"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/graph_round_point" />
 
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:layout_below="@+id/graph_point_view"
             android:text="400.3" />
 
