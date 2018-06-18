@@ -5,7 +5,9 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.widget.RemoteViews
+import android.widget.Toast
 import com.work.hany.mosquitoproject.R
+import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.http.Mosquito
 import com.work.hany.mosquitoproject.http.Requester
 import com.work.hany.mosquitoproject.util.dateFormatKorea
@@ -18,22 +20,21 @@ class TodayMosquitoProvider : AppWidgetProvider(), Requester.RequesterResponse {
 
     override fun receivedResult(mosquitoes: Map<String, Float>) {
         mosquitoes[Date().todayDate()]?.let { mosquitoValue ->
-            updateWidget(context,Mosquito(Date().todayDate(),mosquitoValue) )
+            updateWidget(context, Mosquito(Date().todayDate(), mosquitoValue))
         }
 
     }
 
     override fun failedResult(errorMsg: String) {
         //TODO 데이터 안넘어온것이니 업데이트 안됐다는 화면 띄워주자
-
-
     }
 
+
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        this.context = context;
+        Toast.makeText(context, "update", Toast.LENGTH_SHORT).show()
+        Requester(this).requestToday()
         // There may be multiple widgets active, so update all of them
-        for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
-        }
     }
 
     override fun onEnabled(context: Context) {
@@ -59,8 +60,10 @@ class TodayMosquitoProvider : AppWidgetProvider(), Requester.RequesterResponse {
 
 //            mosquitoWidgetView.set(R.id.today_mosquito_value_bar_view , "width",400.0f)
 //            mosquitoWidgetView.get
-            mosquitoWidgetView.setTextViewText(R.id.widget_today_mosquito_text_view,todayMosquito.mosquitoDate.dateFormatKorea())
-            mosquitoWidgetView.setTextViewText(R.id.today_mosquito_value_text_view,todayMosquito.mosquitoValue.toString())
+            var mosquitoStep = DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)
+            mosquitoWidgetView.setTextViewText(R.id.widget_today_mosquito_text_view, todayMosquito.mosquitoDate.dateFormatKorea())
+            mosquitoWidgetView.setTextViewText(R.id.widget_today_mosquito_value_text_view, todayMosquito.mosquitoValue.toString())
+            mosquitoWidgetView.setTextViewText(R.id.widget_today_mosquito_step_text_view, mosquitoStep)
 
 
 //            mosquitoWidgetView.

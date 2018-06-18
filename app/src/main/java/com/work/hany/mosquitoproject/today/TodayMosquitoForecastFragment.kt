@@ -85,6 +85,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
             graphDateTextView.text = date.dateFormatMMDD()
             graphPointView.translationY = graphHeight - result
 
+            //TODO 그래프 위치에 따라 텍스트 위치 변경해줘야한다. 그래프가 낮으면 안보이기 때문이다 ㅇㅁㅇ 
             graphPointTextView.text = StringBuilder().append(value).toString()
             graphPointTextView.translationY =  graphPointView.translationY - dateTextViewHeight
             graphParentLayout.addView(graphView)

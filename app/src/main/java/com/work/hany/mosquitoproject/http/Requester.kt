@@ -107,6 +107,7 @@ class Requester(private var responseListener: RequesterResponse) {
             service.getMosquito(apiKey, date).enqueue(object : Callback<MosquitoResult> {
                 override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
                     responseListener.failedResult(t.toString())
+                    //connect timed out... TODO 실패하면 다시 시도하도록 한다.
                 }
 
                 override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
