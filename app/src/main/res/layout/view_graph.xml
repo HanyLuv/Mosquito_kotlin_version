@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/graph_view"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/graph_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/date_text_view"
-        android:layout_alignLeft="@id/date_text_view"
-        android:layout_alignRight="@id/date_text_view"
-        android:layout_centerHorizontal="true">
 
         <View
             android:id="@+id/graph_point_view"
@@ -22,14 +15,11 @@
         <TextView
             android:id="@+id/graph_point_value_text_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
             android:gravity="center"
             android:textSize="8sp"
             android:layout_below="@+id/graph_point_view"
             android:text="400.3" />
-
-
-    </RelativeLayout>
 
 
     <TextView
@@ -38,6 +28,7 @@
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
+        android:visibility="gone"
         android:textSize="10sp"
         android:text="[3월 20일]" />
 </RelativeLayout>

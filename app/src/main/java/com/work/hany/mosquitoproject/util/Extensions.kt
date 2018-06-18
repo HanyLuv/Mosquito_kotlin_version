@@ -109,5 +109,7 @@ private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Un
     }.commit()
 }
 
-fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density.toInt())
+fun Float.toDp(): Float = (this / Resources.getSystem().displayMetrics.density)
+
+fun Float.toPx(): Float = (this * Resources.getSystem().displayMetrics.density)
 

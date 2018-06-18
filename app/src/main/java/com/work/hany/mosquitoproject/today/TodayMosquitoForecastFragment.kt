@@ -3,6 +3,7 @@ package com.work.hany.mosquitoproject.today
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.work.hany.mosquitoproject.http.Mosquito
 import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.dateFormatMMDD
 import com.work.hany.mosquitoproject.util.toDp
+import com.work.hany.mosquitoproject.util.toPx
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -65,12 +67,18 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         graphParentLayout.orientation = LinearLayout.HORIZONTAL
         graphParentLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
 
-        var dateTextViewHeight = 10.toDp()
-        var graphHeight = parentLayout.height - dateTextViewHeight
+//        var dateTextViewHeight = 20f.toPx()
+        var graphPointViewHeight = 12f.toPx() // 12dp
+        var graphPointTextHeight = 10f.toPx() // 10dp
+//        var graphHeight = parentLayout.height - dateTextViewHeight
+        var graphHeight = parentLayout.height
 
-        mosquitoes.forEach { date, value ->
-            var result = value * graphHeight / 1000
-//            Log.e("HANY [MainActivity] ", "DATE : $date : 그래프최대 높이 " + graphHeight + " 오리지날값 " + value + " 그 값에 대한 비율: " + result)
+//        Log.e("HANY_TAG","graphHeight : "+graphHeight)
+
+        mosquitoes.forEach { (date, value) ->
+//            var result = (value * graphHeight) / 1000
+            var result = (10.0f * graphHeight) / 1000
+            Log.e("HANY [MainActivity] ", "DATE : $date : 그래프최대 높이 " + graphHeight + " 오리지날값 " + value + " 그 값에 대한 비율: " + result)
 
             var graphView = LayoutInflater.from(context).inflate(R.layout.view_graph, null, false)
             var graphViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.MATCH_PARENT, 1.0f)
@@ -83,11 +91,24 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
             var graphDateTextView: TextView = graphView.findViewById(R.id.date_text_view)
 
             graphDateTextView.text = date.dateFormatMMDD()
-            graphPointView.translationY = graphHeight - result
 
-            //TODO 그래프 위치에 따라 텍스트 위치 변경해줘야한다. 그래프가 낮으면 안보이기 때문이다 ㅇㅁㅇ 
-            graphPointTextView.text = StringBuilder().append(value).toString()
-            graphPointTextView.translationY =  graphPointView.translationY - dateTextViewHeight
+
+            if (result > 0.0f) {
+//                graphPointView.translationY = (graphHeight - result) - (graphPointViewHeight + graphPointTextHeight) //600이어야 보이네.
+                graphPointView.translationY = 800f
+                Log.e("HANY [MainActivity] ", "graphPointView.translationY  : "+   graphPointView.translationY )
+                Log.e("HANY [MainActivity] ", "translationY "+  (graphHeight - result))
+                Log.e("HANY [MainActivity] ", "translationY original "+  (result))
+                Log.e("HANY [MainActivity] ", "translationY original to px "+  (result.toPx()))
+                Log.e("HANY [MainActivity] ", "translationY original to dp "+  (result.toDp()))
+                //TODO 그래프 위치에 따라 텍스트 위치 변경해줘야한다. 그래프가 낮으면 안보이기 때문이다 ㅇㅁㅇ
+                graphPointTextView.text = StringBuilder().append(value).toString()
+                graphPointTextView.translationY =  graphPointView.translationY - 10f.toDp()
+            } else {
+                graphPointView.visibility = View.GONE
+                graphPointTextView.visibility = View.GONE
+            }
+
             graphParentLayout.addView(graphView)
 
         }
