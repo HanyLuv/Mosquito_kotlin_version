@@ -16,7 +16,7 @@ import com.work.hany.mosquitoproject.data.Step
 import com.work.hany.mosquitoproject.http.Mosquito
 import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.dateFormatMMDD
-import com.work.hany.mosquitoproject.util.toDp
+import com.work.hany.mosquitoproject.util.dpToPx
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -39,12 +39,12 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
         stringBuilder.setLength(0)
 
-        step.activeBehaviorItems.forEach { stringBuilder.append("- ").append(it).append("\n")  }
-
-        step.defensiveBehaviorItems.forEachIndexed { index, stringBehavior ->
-            stringBuilder.append("- ").append(stringBehavior)
-            if( index != step.publicBehaviorItems.lastIndex ) { stringBuilder.append("\n")}
-        }
+//        step.activeBehaviorItems.forEach { stringBuilder.append("- ").append(it).append("\n")  }
+//
+//        step.defensiveBehaviorItems.forEachIndexed { index, stringBehavior ->
+//            stringBuilder.append("- ").append(stringBehavior)
+//            if( index != step.publicBehaviorItems.lastIndex ) { stringBuilder.append("\n")}
+//        }
 
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = stringBuilder.toString()
         stageInformationLayout.findViewById<TextView>(R.id.today_date_text_view).text = todayMosquito.mosquitoDate.dateFormatKorea()
@@ -61,38 +61,47 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
 
     override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
-        var graphParentLayout = LinearLayout(context)
-        graphParentLayout.orientation = LinearLayout.HORIZONTAL
-        graphParentLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
 
-        var dateTextViewHeight = 10.toDp()
-        var graphHeight = parentLayout.height - dateTextViewHeight
+//        var graphDateTextViewHeight = 130f.dpToPx()
+        var graphPointViewHeight = 10f.dpToPx()
+//        var graphHeight =  parentLayout.height
 
-        mosquitoes.forEach { date, value ->
-            var result = value * graphHeight / 1000
-//            Log.e("HANY [MainActivity] ", "DATE : $date : 그래프최대 높이 " + graphHeight + " 오리지날값 " + value + " 그 값에 대한 비율: " + result)
+//        mosquitoes.forEach { date, value ->
+//            var result = 0 * graphHeight / 1000
+//            android.util.Log.e("HANY [MainActivity] ", "DATE : $date : 그래프최대 높이 " + graphHeight + " 오리지날값 " + value + " 그 값에 대한 비율: " + result)
+//
+//            var graphView = LayoutInflater.from(context).inflate(R.layout.view_graph, null, false)
+//            var graphViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.MATCH_PARENT, 1.0f)
+//            graphView.layoutParams = graphViewParams
+//            var graphPointTextView: TextView = graphView.findViewById(R.id.graph_point_value_text_view)
+//
+//            var graphPointView: View = graphView.findViewById(R.id.graph_point_view)
+//            var graphDateTextView: TextView = graphView.findViewById(R.id.date_text_view)
+//
+//            graphDateTextView.text = date.dateFormatMMDD()
+//            var pointerY = (graphHeight - result ) - ( graphPointViewHeight / 2) //포인터 중앙에 위치하게 하려고
+//            graphPointView.y = graphHeight /2f
+//            android.util.Log.e("HANY [MainActivity] ", "pointerY : "+pointerY+ " / graphPointViewHeight "+graphPointViewHeight)
+//
+//            //TODO 그래프 위치에 따라 텍스트 위치 변경해줘야한다. 그래프가 낮으면 안보이기 때문이다 ㅇㅁㅇ
+////            graphPointTextView.text = StringBuilder().append(value).toString()
+////            graphPointTextView.translationY =  graphPointView.translationY - dateTextViewHeight
+//            graphParentLayout.addView(graphView)
+//
+//        }
 
-            var graphView = LayoutInflater.from(context).inflate(R.layout.view_graph, null, false)
-            var graphViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.MATCH_PARENT, 1.0f)
-//            graphViewParams.leftMargin = 3
-//            graphViewParams.rightMargin = 3
-            graphView.layoutParams = graphViewParams
+        var graphView: RelativeLayout = LayoutInflater.from(context).inflate(R.layout.view_graph, null, false) as RelativeLayout
+        var graphViewParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.MATCH_PARENT)
+        graphView.layoutParams = graphViewParams
 
-            var graphPointView: View = graphView.findViewById(R.id.graph_point_view)
-            var graphPointTextView: TextView = graphView.findViewById(R.id.graph_point_value_text_view)
-            var graphDateTextView: TextView = graphView.findViewById(R.id.date_text_view)
+        var graphHeight =  parentLayout.height
+        var graphPointView = LayoutInflater.from(context).inflate(R.layout.view_graph_point, null, false)
+        graphPointView.y =(graphHeight / 2f)
+        graphView.addView(graphPointView)
 
-            graphDateTextView.text = date.dateFormatMMDD()
-            graphPointView.translationY = graphHeight - result
 
-            //TODO 그래프 위치에 따라 텍스트 위치 변경해줘야한다. 그래프가 낮으면 안보이기 때문이다 ㅇㅁㅇ 
-            graphPointTextView.text = StringBuilder().append(value).toString()
-            graphPointTextView.translationY =  graphPointView.translationY - dateTextViewHeight
-            graphParentLayout.addView(graphView)
-
-        }
-
-        parentLayout.addView(graphParentLayout)
+        parentLayout.addView(graphView)
+        parentLayout.layoutParams
     }
 
 
