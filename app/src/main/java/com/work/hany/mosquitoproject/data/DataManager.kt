@@ -63,6 +63,7 @@ class DataManager private constructor(){
     }
 
     fun mosquitoStageIndex(mosquitoValue: Float): Int {
+        // 0 하, 1 중, 2 상
         var index = 0
         when {
             mosquitoValue in 0.0..83.3 -> index = 0
@@ -85,13 +86,13 @@ class DataManager private constructor(){
 
     fun createBehaviorItems(context: Context): List<Behavior> {
         var resource = context.resources
-        var resKey = arrayOf("average", "below", "above")
+        var resKey = arrayOf("above", "average", "below")
 
         var behaviorItems: ArrayList<Behavior> = ArrayList()
         behaviorItems.add(Behavior(Type.HEADER, "header", ArrayList()))
 
         var levelTitles = resource.getStringArray(R.array.behavior_levels).toCollection(ArrayList())
-        var levelCount = 1
+        var levelCount = 0
         for (title in levelTitles) {
 
             var strStepRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_steps").toString()
@@ -101,11 +102,13 @@ class DataManager private constructor(){
             var stepCount = 0
             var steps = ArrayList<Step>()
             stepCategories.forEach { stepCategory ->
-
+                                                                                                            // 2임..
                 var strDefensiveRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_").append(resKey[stepCount]).append("_defensive_items").toString()
                 var defensiveItemsRes = resource.getIdentifier(strDefensiveRes, null, context.packageName)
                 var defensiveItems = resource.getStringArray(defensiveItemsRes).toCollection(ArrayList())
 
+//                                                                                           / arrayOf("above", "below", "average")
+                                                                                          "behavior_2_above_average_items"
                 var strActiveRes = StringBuffer().append("array/").append("behavior_").append(levelCount).append("_").append(resKey[stepCount]).append("_active_items").toString()
                 var activeItemsRes = resource.getIdentifier(strActiveRes, null, context.packageName)
                 var activeItems = resource.getStringArray(activeItemsRes).toCollection(ArrayList())

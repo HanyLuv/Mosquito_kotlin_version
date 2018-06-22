@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
+import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.Step
 import com.work.hany.mosquitoproject.http.Mosquito
 import com.work.hany.mosquitoproject.util.dateFormatKorea
@@ -48,7 +49,8 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = stringBuilder.toString()
         stageInformationLayout.findViewById<TextView>(R.id.today_date_text_view).text = todayMosquito.mosquitoDate.dateFormatKorea()
-        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = todayMosquito.mosquitoValue.toString()
+        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text =
+                StringBuilder().append(todayMosquito.mosquitoValue.toString()).append("(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
 
     }
 

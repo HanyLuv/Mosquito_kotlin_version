@@ -3,6 +3,7 @@ package com.work.hany.mosquitoproject
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.DrawerLayout
 
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this, resources.getString(R.string.add_mob_key_test))
+        MobileAds.initialize(this,resources.getString(R.string.add_mob_key))
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
@@ -63,17 +64,18 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
             setDisplayHomeAsUpEnabled(true)
             setHomeButtonEnabled(true)
         }
-
         setupDrawerContent()
         setupDrawerToggle()
 
         Requester(this).request()
 
+        /**드로우 메뉴 막을때*/
+//        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState()
     }
 
