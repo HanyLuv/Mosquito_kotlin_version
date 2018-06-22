@@ -43,6 +43,13 @@ class TodayMosquitoForecastPresenter(context: Context, var view: TodayMosquitoFo
 
     }
 
+    override fun createMosquitoTodayGraphLayout() {
+        mosquitoes[todayDate]?.let {
+            view.createMosquitoTodayGraphLayout(Mosquito(todayDate,it))
+        }
+
+    }
+
     override fun createMosquitoChartLayout() {
         view.createMosquitoChart(mosquitoes)
     }

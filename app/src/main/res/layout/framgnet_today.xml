@@ -7,13 +7,14 @@
         android:id="@+id/view_mosquito_stage_layout"
         layout="@layout/view_mosquito_stage" />
 
-    <FrameLayout
-        android:id="@+id/parent_layout"
+    <LinearLayout
+        android:id="@+id/graph_parent_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_mosquito_stage_title_text_view"
-        android:layout_toRightOf="@id/numerical_value_layout"
-        android:background="#FCF3CF" />
+        android:orientation="horizontal"
+        android:background="#FCF3CF" >
+    </LinearLayout>
 
     <View
         android:id="@+id/divider_view"
@@ -56,12 +57,6 @@
 
     </LinearLayout>
 
-    <!--<TextView-->
-    <!--android:id="@+id/title_text_view"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:text="오늘의 모기 예보"-->
-    <!--android:textSize="30sp" />-->
+
 
 </RelativeLayout>

@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/graph_view"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="#CCFFFFAA">
 
 
-        <View
-            android:id="@+id/graph_point_view"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/graph_round_point" />
+    <RelativeLayout
+        android:id="@+id/graph_point_view"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/graph_round_point" />
 
-        <TextView
-            android:id="@+id/graph_point_value_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:gravity="center"
-            android:textSize="8sp"
-            android:layout_below="@+id/graph_point_view"
-            android:text="400.3" />
+    <TextView
+        android:id="@+id/graph_point_value_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="0.0"
+        android:textSize="10sp" />
 
+    <View
+        android:id="@+id/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/date_text_view"
+        android:background="#D7DBDD" />
 
     <TextView
         android:id="@+id/date_text_view"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
+        android:background="#fff"
         android:gravity="center"
-        android:visibility="gone"
-        android:textSize="10sp"
-        android:text="[3월 20일]" />
+        android:text="없음"
+        android:textSize="12sp"
+        android:visibility="visible" />
+
 </RelativeLayout>

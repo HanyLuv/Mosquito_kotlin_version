@@ -3,5 +3,6 @@
 
     <dimen name="explanation_tabbar_padding">10dp</dimen>
     <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="graph_point_size">10dp</dimen>
 
 </resources>

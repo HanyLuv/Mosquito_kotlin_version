@@ -35,120 +35,120 @@
 
     <!-- ****************************************************************단계별 방어적 행동*** -->
     <!-- 단계별 방어적 행동 [쾌적, 하]-->
-    <array name="behavior_1_below_defensive_items">
+    <array name="behavior_0_below_defensive_items">
         <item>없음</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 중]-->
-    <array name="behavior_1_average_defensive_items">
+    <array name="behavior_0_average_defensive_items">
         <item>없음</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 상]-->
-    <array name="behavior_1_above_defensive_items">
+    <array name="behavior_0_above_defensive_items">
         <item>모기 침입통로 보완</item>
         <item>창문과 문에 방충망 사용하기</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 하]-->
-    <array name="behavior_2_below_defensive_items">
+    <array name="behavior_1_below_defensive_items">
         <item>늦은 시간 현관문 열어놓지 않기</item>
         <item>가급적 냉방기 사용</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 중]-->
-    <array name="behavior_2_average_defensive_items">
+    <array name="behavior_1_average_defensive_items">
         <item>주택 내로 모기 침입 주의</item>
         <item>모기 침입통로 수리</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 상]-->
-    <array name="behavior_2_above_defensive_items">
+    <array name="behavior_1_above_defensive_items">
         <item>문과 창문 방충망 수리</item>
         <item>정화조의 금이나 틈새 수리하기</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 하]-->
-    <array name="behavior_3_below_defensive_items">
+    <array name="behavior_2_below_defensive_items">
         <item>단독주택 거주민 모기장 사용</item>
         <item>출입문과 창문을 열어 환기하는 것을 자제하고 냉방기 사용</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 중]-->
-    <array name="behavior_3_average_defensive_items">
+    <array name="behavior_2_average_defensive_items">
         <item>주간 풀숲 근접지역 숲모기의 흡혈공격 주의</item>
         <item>야외활동시 가급적 긴팔과 긴바지, 양말 착용</item>
         <item>아기침대와 유모차, 아기 케리어에 모기장 사용</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 상]-->
-    <array name="behavior_3_above_defensive_items">
+    <array name="behavior_2_above_defensive_items">
         <item>오후 7시 이후 출입문, 창문(방충망 없는) 열어 놓지 않도록 주의</item>
         <item>아파트 거주민 모기장 사용</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 하]-->
-    <array name="behavior_4_below_defensive_items">
+    <array name="behavior_3_below_defensive_items">
         <item>어린이 야간활동 자제</item>
         <item>취침 시 반드시 모기장 사용</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 중]-->
-    <array name="behavior_4_average_defensive_items">
+    <array name="behavior_3_average_defensive_items">
         <item>야외 활동 자제</item>
         <item>숲 가까이 활동 시 숲모기의 흡혈공격 주의</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 상]-->
-    <array name="behavior_4_above_defensive_items">
+    <array name="behavior_3_above_defensive_items">
         <item>오후 6시 이후 출입문, 창문(방충망 없는) 열어 놓지 않도록 주의</item>
         <item>야외 활동 후 바로 샤워 실시</item>
     </array>
 
     <!-- ****************************************************************단계별 적극적 행동*** -->
     <!-- 단계별 적극적 행동 [쾌적, 하]-->
-    <array name="behavior_1_below_active_items">
+    <array name="behavior_0_below_active_items">
         <item>없음</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 중]-->
-    <array name="behavior_1_average_active_items">
+    <array name="behavior_0_average_active_items">
         <item>생활주변 모기유충 서식지 관찰</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 상]-->
-    <array name="behavior_1_above_active_items">
+    <array name="behavior_0_above_active_items">
         <item>생활주변 모기유충 서식지 파악</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 하]-->
-    <array name="behavior_2_below_active_items">
+    <array name="behavior_1_below_active_items">
         <item>모기유충 서식 관찰</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 중]-->
-    <array name="behavior_2_average_active_items">
+    <array name="behavior_1_average_active_items">
         <item>생활주변(주택, 상가, 시장)의 방치된 모기 발생원을 제거하거나 물 비우기 (버려진 용기, 헌타이어, 깡통 등)</item>
     </array>
 
     <!-- 단계별 적극적 행동 [관심, 상]-->
-    <array name="behavior_2_above_active_items">
+    <array name="behavior_1_above_active_items">
         <item>제거 못한 인공용기 빗물 고임 차단</item>
         <item>주택 옥상에 받아 놓은 빗물 통에 뚜껑 설치</item>
         <item>단독주택 정화조 환기구에 모기망 설치</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 하]-->
-    <array name="behavior_3_below_active_items">
+    <array name="behavior_2_below_active_items">
         <item>관심단계의 모기발생원에 대한 관리 유지</item>
         <item>빗물 고인 곳 모기유충 서식차단</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 중]-->
-    <array name="behavior_3_average_active_items">
+    <array name="behavior_2_average_active_items">
         <item>주 1회 화분, 양동이, 반려동물 식기 등에 고여있는 물을 비워내고 문질러 닦아 뒤집어 놓기</item>
         <item>뚜껑이 없거나 물을 비워낼 수 없는 통은 모기가 통과할 수 없는 촘촘한 망으로 덮기</item>
         <item>집주변에 화초나 풀이 무성하게 자란 곳, 마루 틈, 보일러 실, 창고, 지하계단에 휴식하는 모기가 발견되면 가정용 에어로졸로 방제</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 상]-->
-    <array name="behavior_3_above_active_items">
+    <array name="behavior_2_above_active_items">
         <item>대규모 야외 모기 서식지(도랑, 빗물펌프장 주변, 맨홀, 정화조, 빗물 고인 웅덩이 등) 모기유충 서식을 확인하고 보건소에 신고</item>
         <item>생활주변 모기유충 방제</item>
         <item>야간에 활동 시 어린이는 모기기피제(어린이 전용) 사용 (주의사항 반드시 확인)</item>
@@ -156,7 +156,7 @@
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 하]-->
-    <array name="behavior_4_below_active_items">
+    <array name="behavior_3_below_active_items">
         <item>주의단계에서 제시한 모기성충 휴식처에 에어로졸을 분사하여 방제</item>
         <item>어른도 야간활동 시 기피제 사용</item>
         <item>출입문 주변이나 밖 벽면에 가정용 살충제 처리</item>
@@ -164,13 +164,13 @@
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 중]-->
-    <array name="behavior_4_average_active_items">
+    <array name="behavior_3_average_active_items">
         <item>생활주변 소형 모기 발생원 적극적 제거, 하룻밤 주택내 모기 5마리 이상 침입 시 관할보건소 모기조사 신고</item>
         <item>취침 2시간 전 전자모기향 사용, 취침 시 모기향 꺼짐을 확인하고 환기 후 취침</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 상]-->
-    <array name="behavior_4_above_active_items">
+    <array name="behavior_3_above_active_items">
         <item>생활주변 물이 고인 곳에 모기유충 서식을 확인하고 관할보건소 방역기동반에 적극적으로 신고</item>
         <item>주 1회씩 가까운 대형 모기 발생원을 확인하고 보건소에 신고하여 방제 요청</item>
     </array>
@@ -179,95 +179,95 @@
     <!-- **************************************************** 기관 / 사회 -->
     <!-- ****************************************************************단계별 방어적 행동*** -->
     <!-- 단계별 방어적 행동 [쾌적, 하]-->
-    <array name="behavior_1_below_public_items">
+    <array name="behavior_0_below_public_items">
         <item>월동모기 방제</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 중]-->
-    <array name="behavior_1_average_public_items">
+    <array name="behavior_0_average_public_items">
         <item>모기유충 서식지 감시</item>
     </array>
     <!-- 단계별 방어적 행동 [쾌적, 상]-->
-    <array name="behavior_1_above_public_items">
+    <array name="behavior_0_above_public_items">
         <item>	모기유충 서식지 감시</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 하]-->
-    <array name="behavior_2_below_public_items">
+    <array name="behavior_1_below_public_items">
         <item>야외 모기유충 서식지 제거</item>
         <item>지역별로 물이 고일 수 있는 가능성을 제거</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 중]-->
-    <array name="behavior_2_average_public_items">
+    <array name="behavior_1_average_public_items">
         <item>야외 모기유충 서식 감시 및 관리</item>
     </array>
 
     <!-- 단계별 방어적 행동 [관심, 상]-->
-    <array name="behavior_2_above_public_items">
+    <array name="behavior_1_above_public_items">
         <item>야외 서식 모기유충 방제</item>
         <item>모기 성충발생 모니터링</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 하]-->
-    <array name="behavior_3_below_public_items">
+    <array name="behavior_2_below_public_items">
         <item>야외 서식 모기유충 방제</item>
         <item>모기 성충발생 모니터링</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 중]-->
-    <array name="behavior_3_average_public_items">
+    <array name="behavior_2_average_public_items">
         <item>야외 모기유충 서식 감시 및 관리</item>
         <item>버려진 세탁기, 냉장고, 변기와 같이 물이 쌓일 수 있는 폐기물 방치 관리</item>
     </array>
 
     <!-- 단계별 방어적 행동 [주의, 상]-->
-    <array name="behavior_3_above_public_items">
+    <array name="behavior_2_above_public_items">
         <item>방제모기성충 발생밀도 감시</item>
         <item>모기의 수와 분포에 대해 조사하고 유충 서식지 제거에 대한 영향력을 평가</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 하]-->
-    <array name="behavior_4_below_public_items">
+    <array name="behavior_3_below_public_items">
         <item>모기유충 및 성충</item>
         <item>민원 발생지역 적극 조사</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 중]-->
-    <array name="behavior_4_average_public_items">
+    <array name="behavior_3_average_public_items">
         <item>모기유충 및 성충</item>
         <item>민원 발생지역 적극 조사</item>
     </array>
 
     <!-- 단계별 방어적 행동 [불쾌, 상]-->
-    <array name="behavior_4_above_public_items">
+    <array name="behavior_3_above_public_items">
         <item>모기유충 및 성충</item>
         <item>민원 발생지역 적극 조사</item>
         <item>장기적으로 상하수도 정비, 재활용수거함 정비, 재활용 타이어 적치방안 강구</item>
     </array>
 
     <!-- 단계별 수치 [쾌적]-->
-    <array name="behavior_1_steps">
+    <array name="behavior_0_steps">
         <item>하(0 ~ 83.3)</item>
         <item>중(83.4 ~ 166.6)</item>
         <item>상(166.7 ~ 250)</item>
     </array>
 
     <!-- 단계별 수치 [관심]-->
-    <array name="behavior_2_steps">
+    <array name="behavior_1_steps">
         <item>하(250.1 ~ 333.3)</item>
         <item>중(333.4 ~ 416.6)</item>
         <item>상(416.7 ~ 500)</item>
     </array>
 
     <!-- 단계별 수치 [주의]-->
-    <array name="behavior_3_steps">
+    <array name="behavior_2_steps">
         <item>하(500.1 ~ 583.3)</item>
         <item>중(583.4 ~ 666.6)</item>
         <item>상(666.7 ~ 750)</item>
     </array>
 
     <!-- 단계별 수치 [불쾌]-->
-    <array name="behavior_4_steps">
+    <array name="behavior_3_steps">
         <item>하(750.1 ~ 833.3)</item>
         <item>중(833.4 ~ 916.6)</item>
         <item>상(916.7 ~ 1000)</item>
@@ -275,13 +275,13 @@
 
 
     <!-- 단계별 정의 [쾌적] -->
-    <array name="behavior_1_step_info">
+    <array name="behavior_0_step_info">
         <item>야외에 모기활동이 거의 없음</item>
         <item>야외에 모기유충 서식지가 형성되지 않음</item>
     </array>
 
     <!-- 단계별 정의 [관심] -->
-    <array name="behavior_2_step_info">
+    <array name="behavior_1_step_info">
         <item>야외에 모기 유충 서식지가 20% 이내로 형성된 단계</item>
         <item>집안으로 침입은 없으나, 밖의 기온이 낮은 경우 집안으로 침입이 두드러지게 나타남</item>
         <item>야간 운동 후, 한곳에 정지 상태로 10~15분 이상 머물러 있는 경우</item>
@@ -289,7 +289,7 @@
     </array>
 
     <!-- 단계별 정의 [주의] -->
-    <array name="behavior_3_step_info">
+    <array name="behavior_2_step_info">
         <item>야외에 모기 유충 서식지가 20~50% 범위로 형성된 단계</item>
         <item>단독주택 밀집 지역의 경우, 집안으로 침입하는 모기가 하룻밤에 2~4마리 정도 목격되며, 흡혈 공격도 두드러짐</item>
         <item>야간 운동 후, 한곳에 정지 상태로 10~15분 이상 머물러 있는 경우 3-4마리의 모기로부터 공격을 받을 수 있음
@@ -297,7 +297,7 @@
     </array>
 
     <!-- 단계별 정의 [불쾌] -->
-    <array name="behavior_4_step_info">
+    <array name="behavior_3_step_info">
         <item>야외에 모기 유충 서식지가 50~100% 범위로 형성된 단계</item>
         <item>단독주택 밀집지역의 경우, 집안으로 침입하는 모기가 하룻밤에 5~10마리정도 목격되며, 흡혈 공격이 빈번함</item>
         <item>야간 운동 후, 한곳에 정지상태로 10~15분 이상 머물러 있는 경우 5마리 이상 모기로부터 공격을 받을 수 있음</item>

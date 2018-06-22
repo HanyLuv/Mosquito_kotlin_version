@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오늘의 모기 예보 "
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/today_date_text_view"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="0000년 0월 00일"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
 
         <TextView
@@ -38,14 +38,16 @@
 
     </LinearLayout>
 
-    <include layout="@layout/view_mosquito_today_state_bar" />
+    <include
+        android:id="@+id/view_mosquito_today_state_bar"
+        layout="@layout/view_mosquito_today_state_bar" />
 
 
     <View
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/view_mosquito_stage_layout"
+        android:layout_below="@+id/view_mosquito_today_state_bar"
         android:layout_marginTop="5dp"
         android:background="#D7DBDD" />
 
@@ -54,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:maxLines="4"
         android:text="행동수칙 및 방제법 "
         android:textSize="15sp" />
 
@@ -73,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:paddingLeft="5dp"
+        android:maxLines="4"
         android:text="행동요령"
         android:textSize="14sp" />
 
