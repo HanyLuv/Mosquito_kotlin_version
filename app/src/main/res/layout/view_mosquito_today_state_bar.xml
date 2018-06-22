@@ -21,7 +21,7 @@
 
         <FrameLayout
             android:id="@+id/today_mosquito_value_bar_view"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"

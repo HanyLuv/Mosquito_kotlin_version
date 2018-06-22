@@ -43,6 +43,25 @@ class TodayMosquitoForecastPresenter(context: Context, var view: TodayMosquitoFo
 
     }
 
+    override fun createMosquitoTodayGraphLayout() {
+        mosquitoes[todayDate]?.let { mosquitoValue ->
+            var stage = DataManager.instance.mosquitoStage(mosquitoValue)
+            var stageIndex = DataManager.instance.mosquitoStageIndex(mosquitoValue)
+
+            for (behavior in behaviors) {
+                if (behavior.levelTitle == stage) {
+                    behavior.steps[stageIndex].let {
+                        view.createMosquitoTodayGraphLayout(Mosquito(todayDate, mosquitoValue))
+                    }
+
+                    break
+                }
+            }
+
+        }
+
+    }
+
     override fun createMosquitoChartLayout() {
         view.createMosquitoChart(mosquitoes)
     }

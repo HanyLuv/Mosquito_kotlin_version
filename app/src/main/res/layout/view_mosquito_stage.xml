@@ -38,14 +38,16 @@
 
     </LinearLayout>
 
-    <include layout="@layout/view_mosquito_today_state_bar" />
+    <include
+        android:id="@+id/view_mosquito_today_state_bar"
+        layout="@layout/view_mosquito_today_state_bar" />
 
 
     <View
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/view_mosquito_stage_layout"
+        android:layout_below="@+id/view_mosquito_today_state_bar"
         android:layout_marginTop="5dp"
         android:background="#D7DBDD" />
 
