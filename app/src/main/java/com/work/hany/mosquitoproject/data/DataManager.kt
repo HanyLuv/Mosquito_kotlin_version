@@ -39,6 +39,17 @@ class DataManager private constructor(){
 //
 //    }
 //
+    fun mosquitoLevel(levelTitle: String): String {
+        return when (levelTitle) {
+            "쾌적" -> "1"
+            "관심" -> "2"
+            "주의" -> "3"
+            "불쾌" -> "4"
+            else -> ""
+        }
+
+    }
+
     /***
      *
      *
@@ -50,6 +61,7 @@ class DataManager private constructor(){
      */
     /** 모기 발생 단계를 체크한다.
      * 어디 적합한....  클래스가 어디일까? */
+
 
     fun mosquitoStage(mosquitoValue: Float): String {
         var step = "없음" //값이 안들어오는 경우 테스트 해야한다.

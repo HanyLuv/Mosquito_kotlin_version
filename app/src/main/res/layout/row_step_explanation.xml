@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <View
+        android:id="@+id/divider_view_top"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_below="@id/divider_view_top"
+        android:id="@+id/step_text_view"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:background="#F2F4F4"
+        android:layout_height="wrap_content"
+        android:text="1단계" />
+
+    <View
+        android:layout_below="@id/step_text_view"
+        android:id="@+id/divider_view_bottom"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_height="1dp"/>
+
+    <TextView
+
+        android:layout_below="@id/divider_view_bottom"
+        android:id="@+id/step_info_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="13sp"
+        android:lineSpacingExtra="2dp"
+        android:text="안녕하세요." />
+</RelativeLayout>

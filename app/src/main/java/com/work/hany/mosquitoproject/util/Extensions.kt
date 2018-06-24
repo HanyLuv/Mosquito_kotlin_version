@@ -33,6 +33,11 @@ fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frame
     }
 }
 
+fun AppCompatActivity.addBackStackFragmentInActivity(fragment: Fragment, @IdRes frameId: Int) {
+    supportFragmentManager.transact {
+        add(frameId, fragment).addToBackStack(null) //todo tag생각해보자..
+    }
+}
 
 fun Activity.actionBarHeight(): Int {
     val styledAttributes = theme.obtainStyledAttributes(

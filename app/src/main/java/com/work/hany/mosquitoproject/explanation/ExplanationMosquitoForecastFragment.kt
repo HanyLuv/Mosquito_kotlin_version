@@ -1,25 +1,23 @@
 package com.work.hany.mosquitoproject.explanation
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.Situation
-import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForecastDetailActivity
+import com.work.hany.mosquitoproject.explanation.detail.ExplanationMosquitoForecastDetailFragment
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter
 import com.work.hany.mosquitoproject.explanation.tabs.ExplanationRecyclerAdapter.ClickListener
 import com.work.hany.mosquitoproject.util.actionBarHeight
+import com.work.hany.mosquitoproject.util.addBackStackFragmentInActivity
 
 /**
  * Created by hany on 2018. 2. 25..
@@ -42,6 +40,7 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     companion object {
         fun newInstance() = ExplanationMosquitoForecastFragment()
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var root = inflater.inflate(R.layout.fragment_explanation, container, false)
@@ -94,14 +93,14 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     override fun showSituationTab(items: List<Situation>) {
         tabSelected(situationTabView)
         adapter.addAll(items)
-        recyclerView.scheduleLayoutAnimation()
+//        recyclerView.scheduleLayoutAnimation()
     }
 
 
     override fun showBehaviorTab(items: List<Behavior>) {
         tabSelected(behaviorTabView)
         adapter.addAll(items)
-        recyclerView.scheduleLayoutAnimation()
+//        recyclerView.scheduleLayoutAnimation()
     }
 
 
@@ -111,14 +110,10 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
     }
 
     override fun showExplanationDetail(listItemView: View, behavior: Behavior) {
-        var sharedView = listItemView.findViewById<ImageView>(R.id.background_view)
-        var sharedPair: Pair<View, String> = Pair.create(sharedView, sharedView.transitionName)
+        (activity as AppCompatActivity).let {
+            it.addBackStackFragmentInActivity(ExplanationMosquitoForecastDetailFragment.newInstance(behavior), R.id.main_fragment_container)
+        }
 
-        var transOption = ActivityOptions.makeSceneTransitionAnimation(activity, sharedPair)
-        var intent = Intent(activity, ExplanationMosquitoForecastDetailActivity::class.java)
-
-        intent.putExtra(ExplanationMosquitoForecastDetailActivity.EXTRA_KEY, behavior as Parcelable)
-        startActivity(intent, transOption.toBundle())
     }
 
 

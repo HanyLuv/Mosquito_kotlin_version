@@ -247,30 +247,30 @@
 
     <!-- 단계별 수치 [쾌적]-->
     <array name="behavior_0_steps">
-        <item>하(0 ~ 83.3)</item>
-        <item>중(83.4 ~ 166.6)</item>
-        <item>상(166.7 ~ 250)</item>
+        <item>하 (0 ~ 83.3)</item>
+        <item>중 (83.4 ~ 166.6)</item>
+        <item>상 (166.7 ~ 250)</item>
     </array>
 
     <!-- 단계별 수치 [관심]-->
     <array name="behavior_1_steps">
-        <item>하(250.1 ~ 333.3)</item>
-        <item>중(333.4 ~ 416.6)</item>
-        <item>상(416.7 ~ 500)</item>
+        <item>하 (250.1 ~ 333.3)</item>
+        <item>중 (333.4 ~ 416.6)</item>
+        <item>상 (416.7 ~ 500)</item>
     </array>
 
     <!-- 단계별 수치 [주의]-->
     <array name="behavior_2_steps">
-        <item>하(500.1 ~ 583.3)</item>
-        <item>중(583.4 ~ 666.6)</item>
-        <item>상(666.7 ~ 750)</item>
+        <item>하 (500.1 ~ 583.3)</item>
+        <item>중 (583.4 ~ 666.6)</item>
+        <item>상 (666.7 ~ 750)</item>
     </array>
 
     <!-- 단계별 수치 [불쾌]-->
     <array name="behavior_3_steps">
-        <item>하(750.1 ~ 833.3)</item>
-        <item>중(833.4 ~ 916.6)</item>
-        <item>상(916.7 ~ 1000)</item>
+        <item>하 (750.1 ~ 833.3)</item>
+        <item>중 (833.4 ~ 916.6)</item>
+        <item>상 (916.7 ~ 1000)</item>
     </array>
 
 
@@ -303,5 +303,8 @@
         <item>야간 운동 후, 한곳에 정지상태로 10~15분 이상 머물러 있는 경우 5마리 이상 모기로부터 공격을 받을 수 있음</item>
     </array>
 
+
+
+    <!--상황 환경별 [모기예보제] -> [상황환경별] -->
 
 </resources>
