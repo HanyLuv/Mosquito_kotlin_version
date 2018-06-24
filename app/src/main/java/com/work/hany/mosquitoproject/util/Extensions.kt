@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import java.text.ParseException
+import com.work.hany.mosquitoproject.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,6 +35,11 @@ fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frame
 
 fun AppCompatActivity.addBackStackFragmentInActivity(fragment: Fragment, @IdRes frameId: Int) {
     supportFragmentManager.transact {
+        setCustomAnimations(R.anim.forecast_enter_from_right,
+                R.anim.forecast_exit_to_left,
+                R.anim.forecast_enter_from_left,
+                R.anim.forecast_exit_to_right)
+
         add(frameId, fragment).addToBackStack(null) //todo tag생각해보자..
     }
 }
