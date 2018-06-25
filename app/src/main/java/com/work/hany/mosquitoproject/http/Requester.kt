@@ -1,9 +1,6 @@
 package com.work.hany.mosquitoproject.http
 
-import android.app.Activity
-import android.support.v4.app.Fragment
 import com.google.gson.annotations.SerializedName
-import com.work.hany.mosquitoproject.MainActivity
 import com.work.hany.mosquitoproject.util.todayDate
 import com.work.hany.mosquitoproject.util.weekDate
 import okhttp3.OkHttpClient
@@ -32,11 +29,22 @@ import java.util.*
  */
 
 
-class Requester(private var responseListener: RequesterResponse) {
 
-    interface RequesterResponse {
-        fun receivedResult(mosquitoes: Map<String,Float>)
-        fun failedResult(errorMsg: String)
+
+class Requester {
+
+    private var okHttpClient: OkHttpClient
+    private var requestURI: String
+    private var retrofit: Retrofit
+
+    init {
+        okHttpClient = createOkHttpClient()
+        requestURI = StringBuffer().append(baseURL).append("/").toString()
+        retrofit = Retrofit.Builder()
+                .baseUrl(requestURI)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create()).build()
+
     }
 
     companion object {
@@ -49,14 +57,6 @@ class Requester(private var responseListener: RequesterResponse) {
     /**@description for widget. */
     //TODO 요청하는데 있어서. 중복 코드 정리 필요함
     fun requestToday(){
-        var okHttpClient = createOkHttpClient()
-        var requestURI = StringBuffer()
-                .append(baseURL).append("/").toString()
-
-        var retrofit = Retrofit.Builder()
-                .baseUrl(requestURI)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create()).build()
 
         var service = retrofit.create(MosquitoService::class.java)
         var todayDate = Date().todayDate()
@@ -157,26 +157,6 @@ class Requester(private var responseListener: RequesterResponse) {
 
 }
 
-
-/*
- *
- * {
-    "MosquitoStatus": {
-        "list_total_count": 1,
-        "RESULT": {
-            "CODE": "INFO-000",
-            "MESSAGE": "정상 처리되었습니다"
-        },
-        "row": [
-            {
-                "MOSQUITO_DATE": "2018-02-24",
-                "MOSQUITO_VALUE": 5.5
-            }
-        ]
-    }
-}
- *
- */
 
 
 interface MosquitoService {

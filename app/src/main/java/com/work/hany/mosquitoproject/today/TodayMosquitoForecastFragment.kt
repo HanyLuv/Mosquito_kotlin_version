@@ -3,7 +3,6 @@ package com.work.hany.mosquitoproject.today
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,43 +15,55 @@ import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.Step
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.util.dateFormatKorea
-import com.work.hany.mosquitoproject.util.dateFormatMMDD
-import com.work.hany.mosquitoproject.util.dpToPx
+import com.work.hany.mosquitoproject.http.Base
+import com.work.hany.mosquitoproject.util.*
 
 /**
  * Created by hany on 2018. 2. 25..
  * 오늘의모기예보
  */
-class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.View, ViewTreeObserver.OnGlobalLayoutListener {
+class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.View, ViewTreeObserver.OnGlobalLayoutListener,  Base.RequesterResponse {
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
     private lateinit var graphParentLayout: LinearLayout
     private lateinit var stageInformationLayout: ViewGroup
 
+    /**@description receive mosquito data.
+     *
+     */
+//    override fun failedResult(errorMsg: String) {
+//        Snackbar.make(main_fragment_container, errorMsg, Snackbar.LENGTH_SHORT)
+//        progressbar.visibility = View.GONE
+//    }
+//
+//    override fun receivedResult(mosquitoes: Map<String, Float>) {
+//        mosquitoes.forEach { date, value ->
+//            Log.e("HANY [MainActivity] ", "DATE : $date / VALUE : $value")
+//        }
+//
+//
+//        TodayMosquitoForecastFragment.newInstance().also {
+//            replaceFragmentInActivity(it, R.id.main_fragment_container)
+//            TodayMosquitoForecastPresenter(this, it, mosquitoes.toSortedMap())
+//        }
+//
+//        progressbar.visibility = View.GONE
+//
+//
+//    }
+
     override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
         var stringBuilder = StringBuilder()
-        /** /n 달아주는 함수를 익스텐션으로 빼자.. */
-        step.publicBehaviorItems.forEachIndexed { index, stringBehavior ->
-            stringBuilder.append("- ").append(stringBehavior)
-            if( index != step.publicBehaviorItems.lastIndex ) { stringBuilder.append("\n")}
-        }
-
-        stageInformationLayout.findViewById<TextView>(R.id.public_behavior_information_text_view).text = stringBuilder.toString()
-
-        stringBuilder.setLength(0)
-
-        step.activeBehaviorItems.forEach { stringBuilder.append("- ").append(it).append("\n")  }
-
-        step.defensiveBehaviorItems.forEachIndexed { index, stringBehavior ->
-            stringBuilder.append("- ").append(stringBehavior)
-            if( index != step.publicBehaviorItems.lastIndex ) { stringBuilder.append("\n")}
-        }
 
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = stringBuilder.toString()
         stageInformationLayout.findViewById<TextView>(R.id.today_date_text_view).text = todayMosquito.mosquitoDate.dateFormatKorea()
-        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text =
-                StringBuilder().append(todayMosquito.mosquitoValue.toString()).append("(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
 
+        var behaviorInfoList = StringBuffer().append(step.activeBehaviorItems.createStringLikeList())
+                .append("\n").append(step.publicBehaviorItems.createStringLikeList()).toString()
+        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = behaviorInfoList
+        stageInformationLayout.findViewById<TextView>(R.id.public_behavior_information_text_view).text = step.publicBehaviorItems.createStringLikeList()
+
+        val mosquitoValue =   StringBuilder().append(todayMosquito.mosquitoValue.toString()).append("(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
+        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = mosquitoValue
     }
 
 

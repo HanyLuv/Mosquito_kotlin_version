@@ -13,32 +13,13 @@ class DataManager private constructor(){
     private object Holder {
         var INSTANCE = DataManager()
     }
-//
+
     companion object {
         val instance: DataManager by lazy {
             Holder.INSTANCE
         }
     }
-//
-//    private fun getMosquitoStep(mqValue: String): String {
-//        var mqStep = Key.STEP_NULL
-//        if (TextUtils.isEmpty(mqValue)) {
-//            return mqStep
-//        }
-//        val fMqValue = java.lang.Float.valueOf(mqValue)
-//        if (fMqValue >= 0 && fMqValue <= 250) {
-//            mqStep = Key.STEP_ONE
-//        } else if (fMqValue >= 251 && fMqValue <= 500) {
-//            mqStep = Key.STEP_TWO
-//        } else if (fMqValue >= 501 && fMqValue <= 750) {
-//            mqStep = Key.STEP_THREE
-//        } else if (fMqValue >= 751) {
-//            mqStep = Key.STEP_FOUR
-//        }
-//        return mqStep
-//
-//    }
-//
+
     fun mosquitoLevel(levelTitle: String): String {
         return when (levelTitle) {
             "쾌적" -> "1"

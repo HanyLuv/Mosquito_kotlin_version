@@ -1,10 +1,11 @@
 package com.work.hany.mosquitoproject.today
 
+import android.app.Activity
 import android.content.Context
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.util.dateFormatKorea
+import com.work.hany.mosquitoproject.http.Base
 import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
 
@@ -13,14 +14,33 @@ import java.util.*
  */
 /** 뷰에게 무언가를 표시하는 방법을 지시하는 대신, 표시할 내용만 전달합니다. */
 
-class TodayMosquitoForecastPresenter(context: Context, var view: TodayMosquitoForecastContract.View, private var mosquitoes: Map<String, Float>): TodayMosquitoForecastContract.Presenter {
+class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.View): TodayMosquitoForecastContract.Presenter,  TodayMosquitoForecastContract.Requester<Map<String, Float>>{
+
+
+    override fun received(result: Map<String, Float>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun requestMosquitoWeekend() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private var behaviors: List<Behavior>
     private var todayDate: String
 
     init {
         view.presenter = this
-        behaviors = DataManager.instance.createBehaviorItems(context)
+
+        (view as Activity).let {
+            behaviors = DataManager.instance.createBehaviorItems(it.baseContext)
+        }
+
         todayDate = Date().todayDate()
+
+//        (view as Base.RequesterResponse).let {
+////            Base(it).request() //데이터 요청
+//        }
+
     }
 
 

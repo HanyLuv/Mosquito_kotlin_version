@@ -9,12 +9,12 @@ import android.widget.Toast
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.http.Requester
+import com.work.hany.mosquitoproject.http.Base
 import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
 
-class TodayMosquitoProvider : AppWidgetProvider(), Requester.RequesterResponse {
+class TodayMosquitoProvider : AppWidgetProvider(), Base.RequesterResponse {
 
     private lateinit var context: Context
 
@@ -33,14 +33,14 @@ class TodayMosquitoProvider : AppWidgetProvider(), Requester.RequesterResponse {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         this.context = context;
         Toast.makeText(context, "update", Toast.LENGTH_SHORT).show()
-        Requester(this).requestToday()
+//        Base(this).requestToday()
         // There may be multiple widgets active, so update all of them
     }
 
     override fun onEnabled(context: Context) {
         this.context = context
 
-        Requester(this).requestToday()
+//        Base(this).requestToday()
         // Enter relevant functionality for when the first widget is created
     }
 

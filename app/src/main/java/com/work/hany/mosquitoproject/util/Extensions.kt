@@ -112,6 +112,16 @@ fun Date.weekDate(): ArrayList<String> {
     return weekData
 }
 
+fun List<String>.createStringLikeList(): String {
+    var stringBuilder = StringBuffer()
+    this.forEachIndexed { index, item ->
+        stringBuilder.append("- ").append(item)
+        if( index != this.lastIndex ) { stringBuilder.append("\n")}
+    }
+
+    return stringBuilder.toString()
+}
+
 /** fragment 사용하면 add(...)가 자주 불리니깐 inline 처리한듯 부담되지않도록 */
 private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
     beginTransaction().apply {

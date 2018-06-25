@@ -2,11 +2,8 @@ package com.work.hany.mosquitoproject
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.DrawerLayout
 
 import android.support.v7.app.ActionBarDrawerToggle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -14,41 +11,13 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastFragment
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastPresenter
-import com.work.hany.mosquitoproject.http.Requester
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionFragment
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionPresenter
-import com.work.hany.mosquitoproject.today.TodayMosquitoForecastFragment
-import com.work.hany.mosquitoproject.today.TodayMosquitoForecastPresenter
 import com.work.hany.mosquitoproject.util.replaceFragmentInActivity
 import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.reflect.Array
-import java.util.*
 
-class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
-    /**@description receive mosquito data.
-     *
-     */
-    override fun failedResult(errorMsg: String) {
-        Snackbar.make(main_fragment_container, errorMsg, Snackbar.LENGTH_SHORT)
-        progressbar.visibility = View.GONE
-    }
-
-    override fun receivedResult(mosquitoes: Map<String, Float>) {
-        mosquitoes.forEach { date, value ->
-            Log.e("HANY [MainActivity] ", "DATE : $date / VALUE : $value")
-        }
-
-
-        TodayMosquitoForecastFragment.newInstance().also {
-            replaceFragmentInActivity(it, R.id.main_fragment_container)
-            TodayMosquitoForecastPresenter(this, it, mosquitoes.toSortedMap())
-        }
-
-        progressbar.visibility = View.GONE
-
-
-    }
+class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
@@ -64,10 +33,11 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
             setDisplayHomeAsUpEnabled(true)
             setHomeButtonEnabled(true)
         }
+
         setupDrawerContent()
         setupDrawerToggle()
 
-        Requester(this).request()
+//        Base(this).request()
 
         /**드로우 메뉴 막을때*/
 //        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -92,7 +62,11 @@ class MainActivity : AppCompatActivity(), Requester.RequesterResponse {
             when (menuItem.itemId) {
                 R.id.today_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.today_title), Toast.LENGTH_SHORT).show()
-                    replaceFragmentInActivity(TodayMosquitoForecastFragment.newInstance(), R.id.main_fragment_container)
+//                    TodayMosquitoForecastFragment.newInstance().also {
+//                        replaceFragmentInActivity(it, R.id.main_fragment_container)
+//                        TodayMosquitoForecastPresenter(baseContext, it, mapOf())
+//                    }
+
 
                 }
 
