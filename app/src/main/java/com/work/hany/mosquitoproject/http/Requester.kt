@@ -153,9 +153,13 @@ import java.util.*
 
 
 
-//apiKey = "476e58535872757a31313154704f6753" TODO var 변수로 api key를 뺄까나아아
 interface MosquitoService {
-    @GET("476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/{date}")
+
+    companion object {
+        const val apiKey = "476e58535872757a31313154704f6753"
+    }
+
+    @GET("$apiKey/json/MosquitoStatus/1/5/{date}")
     fun getMosquito(@Path("date") date: String): Call<MosquitoResult>
 
 }

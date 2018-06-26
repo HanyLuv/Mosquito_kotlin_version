@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.work.hany.mosquitoproject.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,9 +29,13 @@ fun AppCompatActivity.setupActionBar(@IdRes toolbarId: Int, action: ActionBar.()
 }
 
 fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frameId: Int) {
-    supportFragmentManager.transact {
-        replace(frameId, fragment)
-    }
+    supportFragmentManager.findFragmentByTag(fragment::class.simpleName).let { currentFragment ->
+        if (currentFragment == null || !(currentFragment?.isVisible)) { //널이 아니고 현재 보여지는 프레그 먼트가 아닐때
+            supportFragmentManager.transact {
+                replace(frameId, fragment, fragment::class.simpleName)
+            }
+        }
+   }
 }
 
 fun AppCompatActivity.addBackStackFragmentInActivity(fragment: Fragment, @IdRes frameId: Int) {
