@@ -59,10 +59,10 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        recyclerView.addOnScrollListener(ToolbarHidingOnScrollListener(
-                actionBarHeight,
-                root.findViewById(R.id.toolbar_container),
-                root.findViewById(R.id.colored_background_view)))
+//        recyclerView.addOnScrollListener(ToolbarHidingOnScrollListener(
+//                actionBarHeight,
+//               null,
+//                root.findViewById(R.id.colored_background_view)))
 
         behaviorTabView = root.findViewById<View>(R.id.behaviortab).also {
             it.setOnClickListener { presenter.onTabbBarMenuTapped(it) }
@@ -78,6 +78,7 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
 
         tabViewList = setOf(videoTabView, situationTabView, behaviorTabView)
 
+        retainInstance = true
         return root
     }
 
@@ -108,6 +109,8 @@ class ExplanationMosquitoForecastFragment : Fragment(), ExplanationMosquitoForec
         tabViewList.iterator().forEach { it.isSelected = false }
         selectedTab.isSelected = true
     }
+
+
 
     override fun showExplanationDetail(listItemView: View, behavior: Behavior) {
         (activity as AppCompatActivity).let {

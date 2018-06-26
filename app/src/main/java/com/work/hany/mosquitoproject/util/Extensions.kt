@@ -45,7 +45,7 @@ fun AppCompatActivity.addBackStackFragmentInActivity(fragment: Fragment, @IdRes 
                 R.anim.forecast_enter_from_left,
                 R.anim.forecast_exit_to_right)
 
-        add(frameId, fragment).addToBackStack(null) //todo tag생각해보자..
+        replace(frameId, fragment).addToBackStack(fragment::class.simpleName) //todo tag생각해보자..
     }
 }
 

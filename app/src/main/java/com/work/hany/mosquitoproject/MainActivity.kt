@@ -1,18 +1,14 @@
 package com.work.hany.mosquitoproject
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastFragment
-import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastPresenter
-import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionFragment
-import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionPresenter
+import com.work.hany.mosquitoproject.behvior.ExplanationMosquitoBehaviorFragment
 import com.work.hany.mosquitoproject.today.TodayMosquitoForecastFragment
 import com.work.hany.mosquitoproject.today.TodayMosquitoForecastPresenter
 import com.work.hany.mosquitoproject.today.TodayMosquitoForecastRequester
@@ -67,33 +63,33 @@ class MainActivity : AppCompatActivity() {
         navigation_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.today_navigation_menu_item -> {
-                    Toast.makeText(this, getString(R.string.today_title), Toast.LENGTH_SHORT).show()
                     TodayMosquitoForecastFragment.newInstance().also {
                         replaceFragmentInActivity(it, R.id.main_fragment_container)
                         TodayMosquitoForecastPresenter(it, TodayMosquitoForecastRequester())
                     }
-
-
+                    
                 }
 
                 R.id.explanation_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.explanation_title), Toast.LENGTH_SHORT).show()
-                    ExplanationMosquitoForecastFragment.newInstance().also {
+//                    ExplanationMosquitoForecastFragment.newInstance().also {
+//                        replaceFragmentInActivity(it, R.id.main_fragment_container)
+//                        ExplanationMosquitoForecastPresenter(it)
+//                    }
+                    ExplanationMosquitoBehaviorFragment.newInstance().also {
                         replaceFragmentInActivity(it, R.id.main_fragment_container)
-                        ExplanationMosquitoForecastPresenter(it)
                     }
 
                 }
 
-                R.id.precaution_navigation_menu_item -> {
-                    Toast.makeText(this, getString(R.string.precaution_title), Toast.LENGTH_SHORT).show()
-                    MosquitoPrecautionFragment.newInstance().also {
-                        replaceFragmentInActivity(it, R.id.main_fragment_container)
-                        MosquitoPrecautionPresenter(it)
-                    }
-
-                    replaceFragmentInActivity(MosquitoPrecautionFragment.newInstance(), R.id.main_fragment_container)
-                }
+//                R.id.precaution_navigation_menu_item -> {
+//                    Toast.makeText(this, getString(R.string.precaution_title), Toast.LENGTH_SHORT).show()
+//                    MosquitoPrecautionFragment.newInstance().also {
+//                        replaceFragmentInActivity(it, R.id.main_fragment_container)
+//                        MosquitoPrecautionPresenter(it)
+//                    }
+//
+//                }
 
             }
 

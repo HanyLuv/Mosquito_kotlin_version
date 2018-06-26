@@ -12,12 +12,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.Common
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.TabMenu
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.fragment_explanation_detail.*
 
 /**
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_explanation_detail.*
  * 데이터 노출밖에 없으니 MVP하지 않았음.
  */
 
-class ExplanationMosquitoForecastDetailFragment: Fragment() {
+class ExplanationMosquitoForecastDetailFragment : Fragment() {
 
 
     private lateinit var viewpager: ViewPager
@@ -35,6 +37,8 @@ class ExplanationMosquitoForecastDetailFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var root = inflater.inflate(R.layout.fragment_explanation_detail, container, false)
+        var imageView = root.findViewById<ImageView>(R.id.detail_image_view)
+
 
         viewpager = root.findViewById(R.id.pager)
         tabLayout = root.findViewById(R.id.detail_tab_layout)
@@ -45,10 +49,24 @@ class ExplanationMosquitoForecastDetailFragment: Fragment() {
         var strStepTitle = StringBuffer().append(DataManager.instance.mosquitoLevel(behavior.levelTitle))
                 .append("단계 ").append(behavior.levelTitle).toString()
 
+
+        var pictureName = StringBuffer().append("stage_").append(DataManager.instance.mosquitoLevel(behavior.levelTitle)).toString()
+        val id = context.resources.getIdentifier(pictureName, "drawable", context.packageName)
+        imageView.setImageResource(id)
+
+        imageView.post {
+            Blurry.with(context)
+                    .sampling(1)
+                    .async()
+                    .animate(700)
+                    .capture(imageView)
+                    .into(imageView)
+        }
+
         stepTitleTextView.text = strStepTitle
         viewpager.adapter = ExplanationMosquitoTabFragmentPagerAdapter(activity.supportFragmentManager, tabLayout.tabCount, behavior)
         viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
@@ -66,7 +84,6 @@ class ExplanationMosquitoForecastDetailFragment: Fragment() {
     }
 
 
-
     companion object {
         fun newInstance(behavior: Behavior): ExplanationMosquitoForecastDetailFragment {
             val fragment = ExplanationMosquitoForecastDetailFragment()
@@ -79,10 +96,10 @@ class ExplanationMosquitoForecastDetailFragment: Fragment() {
 }
 
 
-private class ExplanationMosquitoTabFragmentPagerAdapter(fragmentManager: FragmentManager,var tabCount: Int, var behavior: Behavior): FragmentStatePagerAdapter(fragmentManager) {
+private class ExplanationMosquitoTabFragmentPagerAdapter(fragmentManager: FragmentManager, var tabCount: Int, var behavior: Behavior) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
-        var tabMenu :TabMenu  = when(position) {
+        var tabMenu: TabMenu = when (position) {
             0 -> TabMenu.PERSONAL
             else -> TabMenu.PUBLIC
         }

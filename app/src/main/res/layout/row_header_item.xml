@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -22,7 +23,7 @@
     <TextView
         android:id="@+id/header_information_text_view"
         android:layout_width="match_parent"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:layout_height="wrap_content"
         android:text="@string/explanation_tab_behavior_header_information"
         app:layout_constraintBottom_toBottomOf="parent"

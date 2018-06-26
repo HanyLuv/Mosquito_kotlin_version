@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.Step
@@ -29,13 +26,14 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
     private lateinit var graphParentLayout: LinearLayout
     private lateinit var stageInformationLayout: ViewGroup
+    private lateinit var progressbar: ProgressBar
 
-    /*TODO 프로그래스바 처리하기     *
-     */
+    // TODO 프로그래스바 처리하기. 요청이 여러개인데 어떻게 프로그레스바를 처리해야할까?
+    // TODO 각 화면마다 프로그래스바를 두고 화면을 보이지않게 했다 보이도록 하는게 맞는거 같다... 일단은 ?
 
 
     override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
-//        progressbar.visibility = View.GONE
+        progressbar.visibility = View.GONE
 
         var stringBuilder = StringBuilder()
 
@@ -48,14 +46,15 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = behaviorInfoList
         stageInformationLayout.findViewById<TextView>(R.id.public_behavior_information_text_view).text = step.publicBehaviorItems.createStringLikeList()
 
-        val mosquitoValue =   StringBuilder().append(todayMosquito.mosquitoValue.toString()).append("(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
+        val mosquitoValue =   StringBuilder().append(todayMosquito.mosquitoValue.toString()).append(" " +
+                "(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
         stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = mosquitoValue
 
     }
 
 
     override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
-//        progressbar.visibility = View.GONE
+        progressbar.visibility = View.GONE
 
         var graphDateTextViewHeight = 20f.dpToPx()
         var graphPointViewHeight = 10f.dpToPx() //text size 10sp
@@ -78,12 +77,15 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
             var margin = 1f.dpToPx()
             var graphPointTextView: TextView = graphView.findViewById(R.id.graph_point_value_text_view)
-            if (result > 500) {
+
+            if (result < 500) {
                 graphPointTextView.y = graphPointView.y -  graphPointViewHeight - margin
 
             } else {
                 graphPointTextView.y = graphPointView.y + graphPointViewHeight + margin
+
             }
+
             graphPointTextView.text = value.toString()
 
             graphParentLayout.addView(graphView)
@@ -93,6 +95,8 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     }
 
     override fun createMosquitoTodayGraphLayout(todayMosquito: Mosquito) {
+        progressbar.visibility = View.GONE
+
         // TODO 애니메이션 넣어주어 자연스럽게 그리도록하자
         var stateBarBackgroundWidth = stageInformationLayout.findViewById<FrameLayout>(R.id.today_mosquito_value_bar_bg_view).width
         var result = todayMosquito.mosquitoValue * stateBarBackgroundWidth / 1000 //정밀하게 그릴수있도록 수정 작업 필요함.. 뷰를 하나 커스텀해서 만들어야할듯.
@@ -107,6 +111,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         var root = inflater.inflate(R.layout.framgnet_today, container, false)
         graphParentLayout = root.findViewById(R.id.graph_parent_layout)
         stageInformationLayout = root.findViewById(R.id.view_mosquito_stage_layout)
+        progressbar = root.findViewById(R.id.progressbar)
 
         return root
     }
