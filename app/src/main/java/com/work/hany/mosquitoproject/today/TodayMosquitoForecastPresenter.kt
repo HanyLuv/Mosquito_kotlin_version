@@ -57,6 +57,19 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
 
     }
 
+    //TODO createMosquitoStageLayout 와 같은 데이터 량을 가져온다 ㅠ 중복요청이니 어케해결을 해봅시다.
+    override fun createMosquitoChart() {
+        requester.requestMosquitoWeekend(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
+            override fun failed(errorMsg: String) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun received(result: Map<String, Float>) {
+//                result.entries
+                view.createMosquitoChart(result)
+            }
+        })
+    }
 
     override fun createMosquitoTodayGraphAndChartLayout() {
         requester.requestMosquitoToday(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
@@ -68,7 +81,6 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
                 var mosquitoes = result
                 mosquitoes[todayDate]?.let {
                     view.createMosquitoTodayGraphLayout(Mosquito(todayDate, it))
-                    view.createMosquitoChart(mosquitoes)
                 }
             }
         })

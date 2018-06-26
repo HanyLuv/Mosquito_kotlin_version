@@ -30,32 +30,12 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     private lateinit var graphParentLayout: LinearLayout
     private lateinit var stageInformationLayout: ViewGroup
 
-    /**@description receive mosquito data.
-     *
+    /*TODO 프로그래스바 처리하기     *
      */
-//    override fun failedResult(errorMsg: String) {
-//        Snackbar.make(main_fragment_container, errorMsg, Snackbar.LENGTH_SHORT)
-//        progressbar.visibility = View.GONE
-//    }
-//
-//    override fun receivedResult(mosquitoes: Map<String, Float>) {
-//        mosquitoes.forEach { date, value ->
-//            Log.e("HANY [MainActivity] ", "DATE : $date / VALUE : $value")
-//        }
-//
-//
-//        TodayMosquitoForecastFragment.newInstance().also {
-//            replaceFragmentInActivity(it, R.id.main_fragment_container)
-//            TodayMosquitoForecastPresenter(this, it, mosquitoes.toSortedMap())
-//        }
-//
-//        progressbar.visibility = View.GONE
-//
-//
-//    }
+
 
     override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
-        progressbar.visibility = View.GONE
+//        progressbar.visibility = View.GONE
 
         var stringBuilder = StringBuilder()
 
@@ -64,16 +44,18 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
         var behaviorInfoList = StringBuffer().append(step.activeBehaviorItems.createStringLikeList())
                 .append("\n").append(step.publicBehaviorItems.createStringLikeList()).toString()
-        stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = behaviorInfoList
+
+        stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = behaviorInfoList
         stageInformationLayout.findViewById<TextView>(R.id.public_behavior_information_text_view).text = step.publicBehaviorItems.createStringLikeList()
 
         val mosquitoValue =   StringBuilder().append(todayMosquito.mosquitoValue.toString()).append("(").append(DataManager.instance.mosquitoStage(todayMosquito.mosquitoValue)).append(")").toString()
         stageInformationLayout.findViewById<TextView>(R.id.today_mosquito_value_text_view).text = mosquitoValue
+
     }
 
 
     override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
-        progressbar.visibility = View.GONE
+//        progressbar.visibility = View.GONE
 
         var graphDateTextViewHeight = 20f.dpToPx()
         var graphPointViewHeight = 10f.dpToPx() //text size 10sp
@@ -144,6 +126,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
         }
         /** 행동 수칙 마다 결과값 길이가 다르다보니 행동수칙먼저 그리고 나서 모기 차트를 그려야한다.*/
         presenter.createMosquitoTodayGraphAndChartLayout()
+        presenter.createMosquitoChart()
     }
 
     companion object {
