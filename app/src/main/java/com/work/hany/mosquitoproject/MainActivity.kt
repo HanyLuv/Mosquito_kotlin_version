@@ -13,6 +13,9 @@ import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastFrag
 import com.work.hany.mosquitoproject.explanation.ExplanationMosquitoForecastPresenter
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionFragment
 import com.work.hany.mosquitoproject.precaution.MosquitoPrecautionPresenter
+import com.work.hany.mosquitoproject.today.TodayMosquitoForecastFragment
+import com.work.hany.mosquitoproject.today.TodayMosquitoForecastPresenter
+import com.work.hany.mosquitoproject.today.TodayMosquitoForecastRequester
 import com.work.hany.mosquitoproject.util.replaceFragmentInActivity
 import com.work.hany.mosquitoproject.util.setupActionBar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +40,10 @@ class MainActivity : AppCompatActivity() {
         setupDrawerContent()
         setupDrawerToggle()
 
-//        Base(this).request()
+        TodayMosquitoForecastFragment.newInstance().also{
+            replaceFragmentInActivity(it, R.id.main_fragment_container)
+            TodayMosquitoForecastPresenter(it, TodayMosquitoForecastRequester())
+        }
 
         /**드로우 메뉴 막을때*/
 //        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -62,10 +68,10 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.today_navigation_menu_item -> {
                     Toast.makeText(this, getString(R.string.today_title), Toast.LENGTH_SHORT).show()
-//                    TodayMosquitoForecastFragment.newInstance().also {
-//                        replaceFragmentInActivity(it, R.id.main_fragment_container)
-//                        TodayMosquitoForecastPresenter(baseContext, it, mapOf())
-//                    }
+                    TodayMosquitoForecastFragment.newInstance().also {
+                        replaceFragmentInActivity(it, R.id.main_fragment_container)
+                        TodayMosquitoForecastPresenter(it, TodayMosquitoForecastRequester())
+                    }
 
 
                 }

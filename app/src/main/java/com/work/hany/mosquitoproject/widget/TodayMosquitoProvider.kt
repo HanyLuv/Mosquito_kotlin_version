@@ -6,28 +6,27 @@ import android.content.ComponentName
 import android.content.Context
 import android.widget.RemoteViews
 import android.widget.Toast
+import com.work.hany.mosquitoproject.BaseRequester.OnRequesterResponseListener
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.http.Base
 import com.work.hany.mosquitoproject.util.dateFormatKorea
 import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
 
-class TodayMosquitoProvider : AppWidgetProvider(), Base.RequesterResponse {
+class TodayMosquitoProvider : AppWidgetProvider(), OnRequesterResponseListener<Map<String,Float>> {
+    override fun failed(errorMsg: String) {
+        //TODO 데이터 안넘어온것이니 업데이트 안됐다는 화면 띄워주자
+    }
 
-    private lateinit var context: Context
-
-    override fun receivedResult(mosquitoes: Map<String, Float>) {
+    override fun received(result: Map<String, Float>) {
+        var mosquitoes = result
         mosquitoes[Date().todayDate()]?.let { mosquitoValue ->
             updateWidget(context, Mosquito(Date().todayDate(), mosquitoValue))
         }
-
     }
 
-    override fun failedResult(errorMsg: String) {
-        //TODO 데이터 안넘어온것이니 업데이트 안됐다는 화면 띄워주자
-    }
+    private lateinit var context: Context
 
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {

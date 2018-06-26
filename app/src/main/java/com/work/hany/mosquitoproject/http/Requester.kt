@@ -1,13 +1,9 @@
 package com.work.hany.mosquitoproject.http
 
 import com.google.gson.annotations.SerializedName
-import com.work.hany.mosquitoproject.util.todayDate
-import com.work.hany.mosquitoproject.util.weekDate
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -29,139 +25,138 @@ import java.util.*
  */
 
 
-
-
-class Requester {
-
-    private var okHttpClient: OkHttpClient
-    private var requestURI: String
-    private var retrofit: Retrofit
-
-    init {
-        okHttpClient = createOkHttpClient()
-        requestURI = StringBuffer().append(baseURL).append("/").toString()
-        retrofit = Retrofit.Builder()
-                .baseUrl(requestURI)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-
-    }
-
-    companion object {
-        const val baseURL = "http://openapi.seoul.go.kr:8088"
-        const val apiKey = "476e58535872757a31313154704f6753"
-        const val MOSQUITO_COUNT_WEEK = 7
-    }
-
-
-    /**@description for widget. */
-    //TODO 요청하는데 있어서. 중복 코드 정리 필요함
-    fun requestToday(){
-
-        var service = retrofit.create(MosquitoService::class.java)
-        var todayDate = Date().todayDate()
-        var mosquitoes = mutableMapOf<String, Float>()
-
-
-        service.getMosquito(apiKey, todayDate).enqueue(object : Callback<MosquitoResult> {
-            override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
-                responseListener.failedResult(t.toString())
-            }
-
-            override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
-                response?.body()?.let {
-                    if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
-                        var key = it.mosquitoStatus.row[0].mosquitoDate
-                        var value = it.mosquitoStatus.row[0].mosquitoValue
-                        mosquitoes[key] = value
-
-                    } else {
-                        mosquitoes[todayDate] = 0.0f
-
-                    }
-
-                    responseListener.receivedResult(mosquitoes)
-                }
-
-            }
-        })
-    }
-
-    fun request() {
-        //http://openapi.seoul.go.kr:8088/476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/2018-02-24
-        var okHttpClient = createOkHttpClient()
-        var requestURI = StringBuffer()
-                .append(baseURL).append("/").toString()
-
-        var retrofit = Retrofit.Builder()
-                .baseUrl(requestURI)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-
-        var service = retrofit.create(MosquitoService::class.java)
-        var mosquitoes = mutableMapOf<String, Float>()
-
-        var weekDate = Date().weekDate()
-
-        for (date in weekDate) {
-            service.getMosquito(apiKey, date).enqueue(object : Callback<MosquitoResult> {
-                override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
-                    responseListener.failedResult(t.toString())
-                    //connect timed out... TODO 실패하면 다시 시도하도록 한다.
-                }
-
-                override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
-                    response?.body()?.let {
-                        if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
-                            var key = it.mosquitoStatus.row[0].mosquitoDate
-                            var value = it.mosquitoStatus.row[0].mosquitoValue
-                            mosquitoes[key] = value
-
-                        } else {
-                            mosquitoes[date] = 0.0f
-
-                        }
-                    }
-
-                    if (mosquitoes.size >= MOSQUITO_COUNT_WEEK) {
-                        /** 값이 비동기로 들어와서 여기서 한번 정렬해서 넣어줘야한다.*/
-                        var sortMosquitoes = mutableMapOf<String, Float>()
-                        weekDate.forEach { date ->
-                            mosquitoes[date]?.let {
-                                sortMosquitoes[date] = it
-                            }
-                        }
-
-                        responseListener.receivedResult(sortMosquitoes)
-                    }
-
-                }
-            })
-
-        }
-
-
-    }
-
-    //데이터 여러번 보내고 7개를 만들어서 보내야함..
-
-
-    private fun createOkHttpClient(): OkHttpClient { //데이터 로그찍는것.
-        val builder = OkHttpClient.Builder()
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        builder.addInterceptor(interceptor)
-        return builder.build()
-    }
-
-
-}
+//class Requester {
+//
+//    private var okHttpClient: OkHttpClient
+//    private var requestURI: String
+//    private var retrofit: MosquitoRetrofit
+//
+//    init {
+//        okHttpClient = createOkHttpClient()
+//        requestURI = StringBuffer().append(baseURL).append("/").toString()
+//        retrofit = MosquitoRetrofit.Builder()
+//                .baseUrl(requestURI)
+//                .client(okHttpClient)
+//                .addConverterFactory(GsonConverterFactory.create()).build()
+//
+//    }
+//
+//    companion object {
+//        const val baseURL = "http://openapi.seoul.go.kr:8088"
+//        const val apiKey = "476e58535872757a31313154704f6753"
+//        const val MOSQUITO_COUNT_WEEK = 7
+//    }
+//
+//
+//    /**@description for widget. */
+//    //TODO 요청하는데 있어서. 중복 코드 정리 필요함
+//    fun requestToday(){
+//
+//        var service = retrofit.create(MosquitoService::class.java)
+//        var todayDate = Date().todayDate()
+//        var mosquitoes = mutableMapOf<String, Float>()
+//
+//
+//        service.getMosquito(apiKey, todayDate).enqueue(object : Callback<MosquitoResult> {
+//            override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
+//                responseListener.failedResult(t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
+//                response?.body()?.let {
+//                    if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
+//                        var key = it.mosquitoStatus.row[0].mosquitoDate
+//                        var value = it.mosquitoStatus.row[0].mosquitoValue
+//                        mosquitoes[key] = value
+//
+//                    } else {
+//                        mosquitoes[todayDate] = 0.0f
+//
+//                    }
+//
+//                    responseListener.receivedResult(mosquitoes)
+//                }
+//
+//            }
+//        })
+//    }
+//
+//    fun request() {
+//        //http://openapi.seoul.go.kr:8088/476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/2018-02-24
+//        var okHttpClient = createOkHttpClient()
+//        var requestURI = StringBuffer()
+//                .append(baseURL).append("/").toString()
+//
+//        var retrofit = MosquitoRetrofit.Builder()
+//                .baseUrl(requestURI)
+//                .client(okHttpClient)
+//                .addConverterFactory(GsonConverterFactory.create()).build()
+//
+//        var service = retrofit.create(MosquitoService::class.java)
+//        var mosquitoes = mutableMapOf<String, Float>()
+//
+//        var weekDate = Date().weekDate()
+//
+//        for (date in weekDate) {
+//            service.getMosquito(apiKey, date).enqueue(object : Callback<MosquitoResult> {
+//                override fun onFailure(call: Call<MosquitoResult>?, t: Throwable?) {
+//                    responseListener.failedResult(t.toString())
+//                    //connect timed out... TODO 실패하면 다시 시도하도록 한다.
+//                }
+//
+//                override fun onResponse(call: Call<MosquitoResult>?, response: Response<MosquitoResult>?) {
+//                    response?.body()?.let {
+//                        if (it.mosquitoStatus != null && it.mosquitoStatus.row.size > 0) {
+//                            var key = it.mosquitoStatus.row[0].mosquitoDate
+//                            var value = it.mosquitoStatus.row[0].mosquitoValue
+//                            mosquitoes[key] = value
+//
+//                        } else {
+//                            mosquitoes[date] = 0.0f
+//
+//                        }
+//                    }
+//
+//                    if (mosquitoes.size >= MOSQUITO_COUNT_WEEK) {
+//                        /** 값이 비동기로 들어와서 여기서 한번 정렬해서 넣어줘야한다.*/
+//                        var sortMosquitoes = mutableMapOf<String, Float>()
+//                        weekDate.forEach { date ->
+//                            mosquitoes[date]?.let {
+//                                sortMosquitoes[date] = it
+//                            }
+//                        }
+//
+//                        responseListener.receivedResult(sortMosquitoes)
+//                    }
+//
+//                }
+//            })
+//
+//        }
+//
+//
+//    }
+//
+//    //데이터 여러번 보내고 7개를 만들어서 보내야함..
+//
+//
+//    private fun createOkHttpClient(): OkHttpClient { //데이터 로그찍는것.
+//        val builder = OkHttpClient.Builder()
+//        val interceptor = HttpLoggingInterceptor()
+//        interceptor.level = HttpLoggingInterceptor.Level.BODY
+//        builder.addInterceptor(interceptor)
+//        return builder.build()
+//    }
+//
+//
+//}
 
 
 
+//apiKey = "476e58535872757a31313154704f6753"
 interface MosquitoService {
-    @GET("{api_key}/json/MosquitoStatus/1/5/{date}")
-    fun getMosquito(@Path("api_key") apiKey: String,@Path("date") date: String): Call<MosquitoResult>
+    @GET("476e58535872757a31313154704f6753/json/MosquitoStatus/1/5/{date}")
+    fun getMosquito(@Path("date") date: String): Call<MosquitoResult>
 
 }
 

@@ -15,14 +15,17 @@ import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.Step
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.http.Base
-import com.work.hany.mosquitoproject.util.*
+import com.work.hany.mosquitoproject.util.createStringLikeList
+import com.work.hany.mosquitoproject.util.dateFormatKorea
+import com.work.hany.mosquitoproject.util.dateFormatMMDD
+import com.work.hany.mosquitoproject.util.dpToPx
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by hany on 2018. 2. 25..
  * 오늘의모기예보
  */
-class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.View, ViewTreeObserver.OnGlobalLayoutListener,  Base.RequesterResponse {
+class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.View, ViewTreeObserver.OnGlobalLayoutListener {
     override lateinit var presenter: TodayMosquitoForecastContract.Presenter
     private lateinit var graphParentLayout: LinearLayout
     private lateinit var stageInformationLayout: ViewGroup
@@ -52,6 +55,8 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 //    }
 
     override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
+        progressbar.visibility = View.GONE
+
         var stringBuilder = StringBuilder()
 
         stageInformationLayout.findViewById<TextView>(R.id.personal_behavior_information_text_view).text = stringBuilder.toString()
@@ -68,6 +73,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
 
     override fun createMosquitoChart(mosquitoes: Map<String, Float>) {
+        progressbar.visibility = View.GONE
 
         var graphDateTextViewHeight = 20f.dpToPx()
         var graphPointViewHeight = 10f.dpToPx() //text size 10sp
@@ -137,8 +143,7 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
             stageInformationLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
         /** 행동 수칙 마다 결과값 길이가 다르다보니 행동수칙먼저 그리고 나서 모기 차트를 그려야한다.*/
-        presenter.createMosquitoChartLayout()
-        presenter.createMosquitoTodayGraphLayout()
+        presenter.createMosquitoTodayGraphAndChartLayout()
     }
 
     companion object {

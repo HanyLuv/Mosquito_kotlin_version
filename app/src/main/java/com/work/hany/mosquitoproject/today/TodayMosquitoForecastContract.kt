@@ -21,12 +21,12 @@ interface TodayMosquitoForecastContract {
     }
 
     interface Presenter: BasePresenter {
-        fun createMosquitoChartLayout() //모기 그래프를 만든다.
         fun createMosquitoStageLayout() //모기 상태에 따른 안내 레이아웃을 만든다.
-        fun createMosquitoTodayGraphLayout()
+        fun createMosquitoTodayGraphAndChartLayout()
     }
 
-    interface Requester<T> : BaseRequester.OnRequesterResponseListener<T> { // 각 프레젠터마다 요청하는게 다를거라서 각자 선언
-        fun requestMosquitoWeekend()
+    interface Requester : BaseRequester { // 각 프레젠터마다 요청하는게 다를거라서 각자 선언
+        fun requestMosquitoWeekend(responseListener: BaseRequester.OnRequesterResponseListener<Map<String,Float>>)
+        fun requestMosquitoToday(responseListener: BaseRequester.OnRequesterResponseListener<Map<String,Float>>)
     }
 }

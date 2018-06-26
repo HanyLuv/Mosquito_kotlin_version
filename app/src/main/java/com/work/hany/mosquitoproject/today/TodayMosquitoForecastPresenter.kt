@@ -1,11 +1,12 @@
 package com.work.hany.mosquitoproject.today
 
 import android.app.Activity
-import android.content.Context
+import android.support.v4.app.Fragment
+import com.work.hany.mosquitoproject.BaseRequester
+import com.work.hany.mosquitoproject.MosquitoApplication
 import com.work.hany.mosquitoproject.data.Behavior
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.http.Mosquito
-import com.work.hany.mosquitoproject.http.Base
 import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
 
@@ -14,65 +15,64 @@ import java.util.*
  */
 /** 뷰에게 무언가를 표시하는 방법을 지시하는 대신, 표시할 내용만 전달합니다. */
 
-class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.View): TodayMosquitoForecastContract.Presenter,  TodayMosquitoForecastContract.Requester<Map<String, Float>>{
+class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.View, var requester: TodayMosquitoForecastRequester) : TodayMosquitoForecastContract.Presenter {
 
-
-    override fun received(result: Map<String, Float>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun requestMosquitoWeekend() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private var behaviors: List<Behavior>
     private var todayDate: String
 
     init {
         view.presenter = this
-
-        (view as Activity).let {
-            behaviors = DataManager.instance.createBehaviorItems(it.baseContext)
-        }
-
+        behaviors = DataManager.instance.createBehaviorItems(MosquitoApplication.context())
         todayDate = Date().todayDate()
-
-//        (view as Base.RequesterResponse).let {
-////            Base(it).request() //데이터 요청
-//        }
 
     }
 
 
     override fun createMosquitoStageLayout() {
-        mosquitoes[todayDate]?.let { mosquitoValue ->
-            var stage = DataManager.instance.mosquitoStage(mosquitoValue)
-            var stageIndex = DataManager.instance.mosquitoStageIndex(mosquitoValue)
-
-            for (behavior in behaviors) {
-                if (behavior.levelTitle == stage) {
-                    behavior.steps[stageIndex].let {
-                        view.createMosquitoStageLayout(Mosquito(todayDate, mosquitoValue), it)
-                    }
-
-                    break
-                }
+        requester.requestMosquitoWeekend(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
+            override fun failed(errorMsg: String) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        }
+            override fun received(result: Map<String, Float>) {
+                    var mosquitoes = result
+                    mosquitoes[todayDate]?.let { mosquitoValue ->
+                        var stage = DataManager.instance.mosquitoStage(mosquitoValue)
+                        var stageIndex = DataManager.instance.mosquitoStageIndex(mosquitoValue)
+
+                        for (behavior in behaviors) {
+                            if (behavior.levelTitle == stage) {
+                                behavior.steps[stageIndex].let {
+                                    view.createMosquitoStageLayout(Mosquito(todayDate, mosquitoValue), it)
+                                }
+
+                                break
+                            }
+                        }
+
+                    }
+                }
+        })
 
     }
 
-    override fun createMosquitoTodayGraphLayout() {
-        mosquitoes[todayDate]?.let {
-            view.createMosquitoTodayGraphLayout(Mosquito(todayDate,it))
-        }
+
+    override fun createMosquitoTodayGraphAndChartLayout() {
+        requester.requestMosquitoToday(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
+            override fun failed(errorMsg: String) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun received(result: Map<String, Float>) {
+                var mosquitoes = result
+                mosquitoes[todayDate]?.let {
+                    view.createMosquitoTodayGraphLayout(Mosquito(todayDate, it))
+                    view.createMosquitoChart(mosquitoes)
+                }
+            }
+        })
 
     }
-
-    override fun createMosquitoChartLayout() {
-        view.createMosquitoChart(mosquitoes)
-    }
-
 
 }
