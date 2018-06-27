@@ -30,9 +30,11 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     private lateinit var graphParentLayout: LinearLayout
     private lateinit var stageInformationLayout: ViewGroup
 
-    /*TODO 프로그래스바 처리하기     *
-     */
+    /*TODO 프로그래스바 처리하기. 타임아웃 났을때 어떻게하지? */
 
+    override fun createMosquitoFailedLayout(msg: String) {
+
+    }
 
     override fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step) {
 //        progressbar.visibility = View.GONE

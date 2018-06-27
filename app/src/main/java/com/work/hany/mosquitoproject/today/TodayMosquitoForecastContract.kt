@@ -9,13 +9,13 @@ import com.work.hany.mosquitoproject.http.Mosquito
 /**
  * Created by hany on 2018. 2. 25..
  *
- * View와 presenter간의 특별한 계약 (Contract) ... (?)
  */
 interface TodayMosquitoForecastContract {
     interface View: BaseView<Presenter> {
         fun createMosquitoChart(mosquitoes: Map<String, Float>)
         fun createMosquitoStageLayout(todayMosquito: Mosquito, step: Step)
         fun createMosquitoTodayGraphLayout(todayMosquito: Mosquito)
+        fun createMosquitoFailedLayout(msg: String) //요청이 실패한것에대하여 화면을 만든다.
 
 
     }

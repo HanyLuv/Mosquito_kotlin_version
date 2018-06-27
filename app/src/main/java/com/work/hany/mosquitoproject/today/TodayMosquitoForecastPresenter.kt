@@ -11,9 +11,8 @@ import com.work.hany.mosquitoproject.util.todayDate
 import java.util.*
 
 /**
- * Created by hany on 2018. 2. 26..
- */
-/** 뷰에게 무언가를 표시하는 방법을 지시하는 대신, 표시할 내용만 전달합니다. */
+ * Created by hany on 2018. 2. 26..*/
+/** 뷰에게 무언가를 표시하는 방법을 지시하는 대신, 표시할 내용만 전달. */
 
 class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.View, var requester: TodayMosquitoForecastRequester) : TodayMosquitoForecastContract.Presenter {
 
@@ -32,7 +31,7 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
     override fun createMosquitoStageLayout() {
         requester.requestMosquitoWeekend(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
             override fun failed(errorMsg: String) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun received(result: Map<String, Float>) {
@@ -65,7 +64,7 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
             }
 
             override fun received(result: Map<String, Float>) {
-//                result.entries
+//              TODO 정렬 안되는 문제
                 view.createMosquitoChart(result)
             }
         })
