@@ -22,7 +22,8 @@
 
     <string name="explanation_tab_behavior_item_step">단계 </string>
     <!--<string name="add_mob_key_test">ca-app-pub-3940256099942544/6300978111</string>-->
-    <string name="add_mob_key">ca-app-pub-9645116431498503~1918419273</string>
+    <string name="add_mob_banner_key">ca-app-pub-9645116431498503/5942903115</string>
+    <string name="add_mob_sdk_key">ca-app-pub-9645116431498503~1918419273</string>
 
 
 

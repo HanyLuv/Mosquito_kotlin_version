@@ -34,7 +34,6 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
     override fun createMosquitoFailedLayout(msg: String) {
         progressbar.visibility = View.GONE
-
         Toast.makeText(context,msg, Toast.LENGTH_SHORT).show()
 
     }

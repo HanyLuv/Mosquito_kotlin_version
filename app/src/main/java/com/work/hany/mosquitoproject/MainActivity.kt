@@ -5,8 +5,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.work.hany.mosquitoproject.behvior.ExplanationMosquitoBehaviorFragment
 import com.work.hany.mosquitoproject.today.TodayMosquitoForecastFragment
@@ -19,13 +19,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
+    private lateinit var adView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this,resources.getString(R.string.add_mob_key))
+        MobileAds.initialize(this,resources.getString(R.string.add_mob_sdk_key))
+
         val adRequest = AdRequest.Builder().build()
+        adView = findViewById(R.id.adView)
         adView.loadAd(adRequest)
 
         setupActionBar(R.id.toolbar) {
