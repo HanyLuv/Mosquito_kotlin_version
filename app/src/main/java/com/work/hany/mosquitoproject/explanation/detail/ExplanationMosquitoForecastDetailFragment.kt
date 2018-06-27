@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import com.work.hany.mosquitoproject.data.Common
 import com.work.hany.mosquitoproject.data.DataManager
 import com.work.hany.mosquitoproject.data.TabMenu
 import jp.wasabeef.blurry.Blurry
-import kotlinx.android.synthetic.main.fragment_explanation_detail.*
 
 /**
  * Created by hany on 2018. 3. 1..
@@ -42,7 +39,7 @@ class ExplanationMosquitoForecastDetailFragment : Fragment() {
 
         viewpager = root.findViewById(R.id.pager)
         tabLayout = root.findViewById(R.id.detail_tab_layout)
-        stepTitleTextView = root.findViewById(R.id.detail_title_text_view)
+        stepTitleTextView = root.findViewById(R.id.detail_step_title_text_view)
         // behavior.steps[] 0하, 1중, 2상
         var behavior = arguments.getParcelable(Common.EXTRA_KEY) as Behavior
 

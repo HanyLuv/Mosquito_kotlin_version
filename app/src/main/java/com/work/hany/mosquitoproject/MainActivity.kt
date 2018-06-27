@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.explanation_navigation_menu_item -> {
-                    Toast.makeText(this, getString(R.string.explanation_title), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, getString(R.string.explanation_title), Toast.LENGTH_SHORT).show()
 //                    ExplanationMosquitoForecastFragment.newInstance().also {
 //                        replaceFragmentInActivity(it, R.id.main_fragment_container)
 //                        ExplanationMosquitoForecastPresenter(it)

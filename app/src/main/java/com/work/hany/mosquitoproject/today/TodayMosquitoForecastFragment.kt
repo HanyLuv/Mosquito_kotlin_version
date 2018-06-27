@@ -33,6 +33,9 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
     // TODO 각 화면마다 프로그래스바를 두고 화면을 보이지않게 했다 보이도록 하는게 맞는거 같다... 일단은 ?
 
     override fun createMosquitoFailedLayout(msg: String) {
+        progressbar.visibility = View.GONE
+
+        Toast.makeText(context,msg, Toast.LENGTH_SHORT).show()
 
     }
 
@@ -140,6 +143,11 @@ class TodayMosquitoForecastFragment : Fragment(), TodayMosquitoForecastContract.
 
     companion object {
         fun newInstance() = TodayMosquitoForecastFragment()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        presenter.onDetach()
     }
 
 

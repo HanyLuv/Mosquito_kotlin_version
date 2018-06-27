@@ -28,10 +28,14 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
     }
 
 
+    override fun onDetach(){
+        requester.allRequestCallCancel()
+    }
+
     override fun createMosquitoStageLayout() {
         requester.requestMosquitoWeekend(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
             override fun failed(errorMsg: String) {
-
+                view.createMosquitoFailedLayout(errorMsg)
             }
 
             override fun received(result: Map<String, Float>) {
@@ -60,7 +64,7 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
     override fun createMosquitoChart() {
         requester.requestMosquitoWeekend(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
             override fun failed(errorMsg: String) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                view.createMosquitoFailedLayout(errorMsg)
             }
 
             override fun received(result: Map<String, Float>) {
@@ -73,7 +77,7 @@ class TodayMosquitoForecastPresenter(var view: TodayMosquitoForecastContract.Vie
     override fun createMosquitoTodayGraphAndChartLayout() {
         requester.requestMosquitoToday(object : BaseRequester.OnRequesterResponseListener<Map<String, Float>> {
             override fun failed(errorMsg: String) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                view.createMosquitoFailedLayout(errorMsg)
             }
 
             override fun received(result: Map<String, Float>) {
