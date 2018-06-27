@@ -6,11 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/detailFragmentContainer"
+        android:id="@+id/detail_image_view"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -31,7 +32,7 @@
         android:padding="10dp"
         android:text="1단계 쾌적"
         android:textColor="#000"
-        app:layout_constraintTop_toBottomOf="@+id/detailFragmentContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_image_view" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/detail_tab_layout"

@@ -1,12 +1,16 @@
 package com.work.hany.mosquitoproject.explanation.tabs
 
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.work.hany.mosquitoproject.R
 import com.work.hany.mosquitoproject.data.*
+import jp.wasabeef.blurry.Blurry
 
 /**
  *
@@ -69,6 +73,7 @@ abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(it
 private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationRecyclerAdapter.ClickListener) : BaseViewHolder<Behavior>(itemView) {
 
     private var levelTitleView: TextView = itemView.findViewById(R.id.step_text_view)
+    private var backgroundImageView: ImageView = itemView.findViewById(R.id.step_background_view)
 
     override fun bind(item: Behavior) {
         itemView.setOnClickListener {
@@ -81,6 +86,26 @@ private class BehaviorViewHolder(itemView: View, var clickListener: ExplanationR
                 .append(item.levelTitle)
 
         levelTitleView.text = levelTitle
+
+        var pictureName = StringBuffer().append("stage_").append(adapterPosition).toString()
+        var context = itemView.context
+
+        val id = context.resources.getIdentifier(pictureName, "drawable", context.packageName)
+        backgroundImageView.setImageResource(id)
+
+
+        backgroundImageView.post {
+            Blurry.with(context)
+                    .sampling(1)
+                    .async()
+                    .animate(700)
+                    .capture(backgroundImageView)
+                    .into(backgroundImageView)
+        }
+
+
+
+
     }
 
 }

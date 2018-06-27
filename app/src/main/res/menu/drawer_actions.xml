@@ -6,7 +6,7 @@
     <item
         android:id="@+id/explanation_navigation_menu_item"
         android:title="@string/explanation_title" />
-    <item
-        android:id="@+id/precaution_navigation_menu_item"
-        android:title="@string/precaution_title" />
+    <!--<item-->
+        <!--android:id="@+id/ <string name="explanation_title">모기예보제란</string>"-->
+        <!--android:title="@string/precaution_title" />-->
 </menu>
